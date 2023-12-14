@@ -10,7 +10,7 @@ My dotfiles.
 - Foot:
     `mkdir -p ~/.config/foot/ && ln -s "$(realpath foot/foot.ini)" ~/.config/foot/foot.ini`
 - Neovim:
-    `mkdir -p ~/.config/nvim/ && git clone https://github.com/JoeeBritton/nvim-rc.git ~/.config/nvim/`
+    `ln -s "$(realpath nvim/)" ~/.config/`
 - Thunderbird:
     `ln -s "$(realpath thunderbird/user.js)" ~/.thunderbird/<PROFILE>/user.js`
 - ZSH:
