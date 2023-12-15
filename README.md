@@ -17,3 +17,5 @@ My dotfiles.
 - ZSH:
     `ln -s "$(realpath zsh/.zshrc)" ~/.zshrc`
     `ln -s "$(realpath zsh/.zprofile)" ~/.zprofile`
+- Alacritty
+    `ln -s "$(realpath alacritty/alacritty.yml)" ~/.config/alacritty/alacritty.yml`
