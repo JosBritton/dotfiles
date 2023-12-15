@@ -12,6 +12,22 @@ clear-terminal() {
 }
 zle -N clear-terminal
 
+switch-project() {
+	# restore stdio (fixes tmux: not a terminal error)
+	exec </dev/tty
+	exec <&1
+
+	switchproj
+	zle redisplay
+}
+zle -N switch-project
+
+scratch-tmux() {
+	scratchtmux
+	zle redisplay
+}
+zle -N scratch-tmux
+
 stty stop undef	# disable ctrl-s to freeze terminal
 setopt histignorealldups sharehistory interactive_comments
 
@@ -49,7 +65,8 @@ bindkey -M menuselect 'l' vi-forward-char
 bindkey -M menuselect 'j' vi-down-line-or-history
 bindkey -v '^?' backward-delete-char
 
-bindkey -s ^f "switchproj\n"
+bindkey ^f switch-project
+bindkey ^\` scratch-tmux
 
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word

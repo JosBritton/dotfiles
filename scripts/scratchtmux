@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+set -e
+
+tmux_running=$(pgrep tmux)
+if [[ -z $TMUX ]] || [[ -z $tmux_running ]] || [[ -z $TMUX_PANE ]]; then
+    exit 0
+fi
+
+scratch_pane="$(tmux show -vq @scratch_pane)"
+
+# pane does not exist even though it is set
+if [[ -n $scratch_pane ]] && (! tmux list-panes -a | grep -q "$scratch_pane"); then
+    unset scratch_pane
+    tmux set -u @scratch_pane
+fi
+
+if [[ -z $scratch_pane ]]; then
+    if [ "$(tmux display-message -p '#W')" = "scratch" ]; then
+        echo This IS the scratch terminal
+        exit 0
+    fi
+
+    # grab history from scratch window if possible
+    tmux join-pane -v -l 12 -s "scratch" 2> /dev/null || tmux split-window -v -l 12
+
+    # mark new pane id
+    tmux set @scratch_pane "$(tmux display-message -p '#{pane_id}')"
+    exit 0
+fi
+
+if [ "$TMUX_PANE" = "$scratch_pane" ]; then
+    # send pane to scratch window for persistence
+    tmux break-pane -d -n "scratch"
+
+    tmux set -u @scratch_pane
+    exit 0
+fi
+
+if tmux list-panes | grep -q "$scratch_pane"; then
+    tmux select-pane -t "$scratch_pane"
+    exit 0
+fi
+
+tmux join-pane -v -l 12 -s "$scratch_pane"
+
+# vim: ft=bash
