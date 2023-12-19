@@ -20,7 +20,7 @@ font:
     family: Menlo
   italic:
     family: Menlo
-  size: 18.0
+  size: 11.0
 key_bindings:
   - { key: Q, mods: Command, action: Quit }
   - { key: Return, mods: Command, action: ToggleFullscreen }
