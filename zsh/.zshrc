@@ -28,6 +28,12 @@ scratch-tmux() {
 }
 zle -N scratch-tmux
 
+open-neovim-here() {
+	nvim .
+	zle redisplay
+}
+zle -N open-neovim-here
+
 stty stop undef	# disable ctrl-s to freeze terminal
 setopt histignorealldups sharehistory interactive_comments
 
@@ -67,6 +73,7 @@ bindkey -v '^?' backward-delete-char
 
 bindkey ^f switch-project
 bindkey ^\` scratch-tmux
+bindkey ^n open-neovim-here
 
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
