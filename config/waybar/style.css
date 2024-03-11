@@ -1,0 +1,57 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: Jetbrains Mono Medium;
+    font-size: 10pt;
+    min-height: 0;
+}
+
+window#waybar {
+    background: #1d1f21;
+    color: white;
+}
+
+tooltip {
+  background: #1d1f21;
+  border: 1px solid #327bd1;
+}
+
+tooltip label {
+  color: white;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background: #1d1f21;
+    color: white;
+}
+
+#workspaces button {
+    margin-bottom: 2px;
+}
+
+#workspaces button.focused, #workspaces button.active {
+    background: #333333;
+    margin-bottom: 0px;
+    border-bottom: 2px solid #327bd1;
+}
+
+#taskbar button {
+    padding: 0 5px;
+    background: #1d1f21;
+    color: white;
+}
+
+#taskbar button {
+    margin-bottom: 2px;
+}
+
+#taskbar button.focused, #taskbar button.active {
+    background: #333333;
+    margin-bottom: 0px;
+    border-bottom: 2px solid #327bd1;
+}
+
+#pulseaudio, #clock, #tray, #network {
+	padding-right: 10px
+}

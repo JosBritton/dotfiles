@@ -1,0 +1,29 @@
+#!/bin/bash
+_tmpfs="$REGISTER_RUN_DIR"
+_source="$1"
+_dest="$2"
+_alias="$3"
+
+cat <<EOF >> "$_tmpfs/install.make"
+.PHONY: $_alias $_dest
+$_alias: $_dest
+$_dest:
+	mkdir -p "$(dirname "$_dest")"
+	ln -sfT "$_source" "$_dest"
+
+EOF
+
+# tests cannot have trailing slash
+_file="$(echo "$_dest" | sed 's/\/$//')"
+
+cat <<EOF >> "$_tmpfs/installcheck.make"
+.PHONY: $_alias $_dest
+$_alias: $_dest
+$_dest:
+	./check "$_source" "$_dest"
+
+EOF
+
+cat <<EOF >> "$_tmpfs/uninstall.make"
+	unlink "$_dest"
+EOF

@@ -1,0 +1,29 @@
+* {
+  all: unset;
+}
+
+.bar {
+  background-color: #1d1f21;
+  color: white;
+  font-family: system-ui, sans-serif;
+  // margin: 0px 10px;
+}
+
+.bar button {
+  padding: 0px 4px;
+}
+
+.bar button:hover,
+.workspaces button.active:hover {
+  background-color: #444444;
+}
+
+.workspaces button {
+  padding: 0px 4px 2px;
+}
+
+.workspaces button.active {
+  background-color: #333333;
+  padding-bottom: 0px;
+  border-bottom: 2px solid #327bd1;
+}

@@ -1,0 +1,30 @@
+#!/bin/bash
+
+fail() {
+    >&2 printf '\033[0;31m\u274c\033[0m Fail: %s\n' "$1"
+}
+
+pass() {
+    printf '\033[0;32m\u2714\033[0m Pass: %s\n' "$1"
+}
+
+# test cannot have trailing slash
+file="$(echo "$2" | sed 's/\/$//')"
+
+if [ ! -f "$file" ] && [ ! -d "$file" ]; then
+    fail "$2 does not exist."
+    exit 1
+fi
+
+if [ ! -L "$file" ]; then
+    fail "$2 is not a symlink."
+    exit 1
+fi
+
+if [ "$(readlink -f "$2")" != "$1" ]; then
+    fail "$2 does not link to $1."
+    exit 1
+fi
+
+pass "$2"
+exit 0

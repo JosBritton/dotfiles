@@ -1,0 +1,6 @@
+[Unit]
+Description=Check for updates and send a notification.
+
+[Service]
+Type=oneshot
+ExecStart=/bin/sh -c 'n="$(/usr/bin/checkupdates | wc -l)"; test $n -gt 0 && notify-send "Pacman: $n updates are available." || echo No updates.'

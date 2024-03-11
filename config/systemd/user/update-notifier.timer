@@ -1,0 +1,10 @@
+[Unit]
+Description=Check for updates and send a notification.
+
+[Timer]
+OnBootSec=2min
+OnUnitActiveSec=4h
+Unit=update-notifier.service
+
+[Install]
+WantedBy=default.target

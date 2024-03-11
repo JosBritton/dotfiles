@@ -1,0 +1,32 @@
+#!/bin/sh -e
+
+p="$@"
+
+if [ -z "$p" ]; then
+    p="ON"
+fi
+
+param="$(echo "$p" | tr '[:lower:]' '[:upper:]')"
+
+vsync() {
+    echo "Turning vsync $1..."
+    nvidia-settings -a CurrentMetaMode="DP-0: 2560x1440_144 +0+0 { \
+        ForceCompositionPipeline=$1, ForceFullCompositionPipeline=$1 }, \
+        DP-2: 2560x1440_144 +2560+0 { ForceCompositionPipeline=$1, \
+        ForceFullCompositionPipeline=$1 }"
+}
+
+if [ "$param" = "OFF" ]; then
+    vsync "Off"
+    exit 0
+fi
+
+if [ "$param" = "ON" ]; then
+    vsync "On"
+    exit 0
+fi
+
+echo "Parameter not supported, use 'off' or 'on', default: 'on'." >&2
+exit 1
+
+
