@@ -1,0 +1,44 @@
+#! /bin/sh
+
+bspc rule -r "*"
+
+bspc monitor DP-0 -d 1 2 3 4
+bspc monitor DP-2 -d 5 6 7 8
+
+bspc config split_ratio 0.50
+bspc config borderless_monocle false
+# bspc config gapless_monocle false
+
+bspc config gapless_monocle true
+
+# bspc config pointer_modifier lock
+# bspc config pointer_action1 move
+# bspc config pointer_action2 resize_side
+# bspc config pointer_action3 resize_corner
+
+bspc config merge_overlapping_monitors
+
+bspc rule -a thunderbird desktop="^3"
+
+bspc config normal_border_color	"#595959"
+bspc config active_border_color	"#595959"
+bspc config focused_border_color "#33ccff"
+bspc config presel_feedback_color "#595959"
+bspc config urgent_border_color "#dd2727"
+
+bspc config top_padding 0
+bspc config bottom_padding 0
+bspc config left_padding 0
+bspc config right_padding 0
+bspc config border_width 2
+bspc config window_gap 6
+
+setaudio &
+nvidia-settings --load-config-only &
+xsetnvsync on &
+
+(pkill -USR1 -x sxhkd || true) &
+
+pkill stalonetray; stalonetray &
+pgrep -x stalonetray >/dev/null && eww close-all && \
+    eww open-many bar:primary bar:secondary --arg primary:screen=0 --arg secondary:screen=1

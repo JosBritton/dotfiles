@@ -1,0 +1,52 @@
+{
+    "layer": "top",
+    "height": 30,
+    "spacing": 4,
+    "modules-left": ["hyprland/workspaces"],
+    "modules-center": ["wlr/taskbar"],
+    "modules-right": ["pulseaudio", "network", "clock", "tray", "keyboard-state"],
+    "hyprland/workspaces": {
+        "persistent-workspaces": {
+            "*": 6
+        }
+    },
+    "wlr/taskbar": {
+        "format": "{icon} {title}",
+        "icon-size": 19,
+        "all_outputs": true
+    },
+    "tray": {
+        "spacing": 10
+    },
+    "clock": {
+        "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "<span color='#ffffff'>{:%H:%M %d/%m/%Y}</span>",
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {format_source}",
+        "format-bluetooth-muted": " {icon} {format_source}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "0% ",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "tooltip-format": "{desc}"
+    },
+    "network": {
+        "tooltip-format": "{icon} {ifname}: {ipaddr}/{cidr} via {gwaddr}",
+        "format-alt": "",
+        "format-wifi": "",
+        "format-ethernet": "",
+        "format-linked": "(No IP) ",
+        "format-disconnected": "DC ⚠",
+        "max-length": 24
+    }
+}

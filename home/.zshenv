@@ -1,0 +1,20 @@
+export ZDOTDIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+export CUDA_CACHE_PATH="${XDG_CACHE_HOME:-$HOME/.cache}/nv"
+export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"
+export XINITRC="${XDG_CONFIG_HOME:-$HOME/.config}/X11/xinitrc"
+export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
+export NPM_CONFIG_USERCONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/npm/config"
+export GNUPGHOME="${XDG_DATA_HOME:-$HOME/.local/share}/gnupg"
+export RUSTUP_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/rustup"
+export ANSIBLE_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/ansible"
+export ANSIBLE_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/ansible.cfg"
+export ANSIBLE_GALAXY_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ansible/galaxy_cache"
+export PYTHON_HISTORY="${XDG_STATE_HOME:-$HOME/.local/state}/python/history"
+export PYTHONPYCACHEPREFIX="${XDG_CACHE_HOME:-$HOME/.cache}/python"
+export PYTHONUSERBASE="${XDG_DATA_HOME:-$HOME/.local/share}/python"
+
+# I think fedora abandoned the GTK -> QT theme
+# export QT_STYLE_OVERRIDE="Adwaita-Dark" 
+
+export GTK_THEME="Adwaita:dark"
+alias nvidia-settings="nvidia-settings --config="${XDG_CONFIG_HOME:-$HOME/.config}/nvidia/settings""

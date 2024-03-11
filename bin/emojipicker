@@ -1,0 +1,19 @@
+#!/bin/bash
+mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/josbritton/"
+
+chosen=$(cat "${XDG_DATA_HOME:-$HOME/.local/share}/josbritton/emoji" | tofi \
+	--font=/usr/share/fonts/noto/NotoColorEmoji.ttf \
+	| awk '{print $1}')
+
+[ -z "$chosen" ] && exit
+
+# arg was undefined, copy to clipboard
+if [ -n "$1" ]; then
+	ydotool type "$chosen"
+	exit
+fi
+
+# arg was defined, insert it as text
+printf "$chosen" | wl-copy
+      notify-send "'$chosen' copied to clipboard." &
+

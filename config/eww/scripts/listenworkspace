@@ -1,0 +1,11 @@
+#!/bin/sh
+
+refresh() {
+    bspc query -D -d focused --names
+}
+
+refresh
+
+bspc subscribe desktop_focus | while read _; do
+    refresh
+done

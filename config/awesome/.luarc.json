@@ -1,0 +1,36 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "runtime": {
+    "version": "LuaJIT"
+  },
+  "workspace": {
+    "library": [
+      "/usr/share/awesome/lib/"
+    ],
+    "maxPreload": 2000,
+    "preloadFileSize": 1000
+  },
+  "diagnostics": {
+    "globals": [
+      "awesome",
+      "awful",
+      "client",
+      "screen",
+      "tag",
+      "root"
+    ],
+    "groupFileStatus": {
+      "strict": "Opened",
+      "strong": "Opened"
+    },
+    "groupSeverity": {
+      "strong": "Warning",
+      "strict": "Warning"
+    },
+    "unusedLocalExclude": [ "_*" ],
+    "disable": [
+      "luadoc-miss-see-name"
+    ]
+  },
+  "telemetry.enable": false
+}

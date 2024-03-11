@@ -1,0 +1,69 @@
+(defwidget bar [screen]
+(centerbox :orientation "h"
+    (workspaces :screen screen)
+    (windowtitle :screen screen)
+    (statusright)))
+
+(defwidget statusright []
+(box :class "statusright"
+        :orientation "h"
+        :space-evenly false
+        :halign "end"
+    (button time)
+    (button :tooltip longdate
+            :onrightclick "echo '${date}' | xsel --clipboard && notify-send 'Copied to clipboard.'"
+            date)))
+
+(defwidget workspaces [screen]
+(box :class "workspaces"
+        :orientation "h"
+        :space-evenly true
+        :halign "start"
+    (button :class {activeworkspace == (screen == 0 ? 1 : 5) ? "active" : "inactive"}
+            :onclick "bspc desktop -f ${screen == 0 ? 1 : 5}" {screen == 0 ? 1 : 5})
+    (button :class {activeworkspace == (screen == 0 ? 2 : 6) ? "active" : "inactive"}
+            :onclick "bspc desktop -f ${screen == 0 ? 2 : 6}" {screen == 0 ? 2 : 6})
+    (button :class {activeworkspace == (screen == 0 ? 3 : 7) ? "active" : "inactive"}
+            :onclick "bspc desktop -f ${screen == 0 ? 3 : 7}" {screen == 0 ? 3 : 7})
+    (button :class {activeworkspace == (screen == 0 ? 4 : 8) ? "active" : "inactive"}
+            :onclick "bspc desktop -f ${screen == 0 ? 3 : 8}" {screen == 0 ? 4 : 8})))
+
+;; (defwidget workspaces []
+;; (literal :content workspaces))
+
+(defwidget windowtitle [screen]
+(label :class "windowtitle"
+        :text windowtitle
+        :visible {(screen == 0 && activeworkspace < 5) || (screen == 1 && activeworkspace > 4)}
+        :limit-width 48
+        :show-truncated true
+        :yalign "center"
+        :tooltip windowtitle))
+
+(deflisten windowtitle :initial ""
+    "xtitle -s")
+
+(deflisten activeworkspace :initial ""
+    "./scripts/listenworkspace")
+
+(defpoll longdate :interval "10s"
+    "date '+%a, %b %d %Y'")
+
+(defpoll time :interval "10s"
+    "date '+%H:%M'")
+
+(defpoll date :interval "10s"
+    "date '+%Y-%m-%d'")
+
+;; (deflisten workspaces :initial ""
+;;   "./scripts/workspaces")
+
+(defwindow bar [screen]
+    :monitor screen
+    :stacking "bg"
+    :windowtype "desktop"
+    :geometry (geometry :width "100%"
+        :height "30px"
+        :anchor "top center")
+    :reserve (struts :side "top" :distance "30px")
+(bar :screen screen))

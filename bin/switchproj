@@ -1,7 +1,5 @@
-#!/usr/bin/env bash
+#!/bin/bash -e
 # credit: https://github.com/ThePrimeagen/.dotfiles
-
-set -e
 
 if ! command -v fzf &> /dev/null; then
     echo Error: Fzf not installed!
@@ -11,7 +9,8 @@ fi
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    selected=$(find -L ~/Sync -mindepth 1 -maxdepth 1 -type d -not -name ".*" | fzf)
+    # selected=$(fd --follow . ~/Sync --exact-depth 1 -t d -E ".*" | fzf)
+    selected=$((echo "$HOME/Sync/dotfiles/config/nvim"; find -L ~/Sync -mindepth 1 -maxdepth 1 -type d -not -name ".*") | fzf)
 fi
 
 if [[ -z $selected ]]; then
@@ -34,5 +33,3 @@ if [[ -z $TMUX ]]; then
 fi
 
 tmux switch-client -t "$selected_name"
-
-# vim: ft=bash
