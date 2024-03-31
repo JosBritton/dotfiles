@@ -195,8 +195,8 @@ local globalkeys = gears.table.join(
         { description = "reload awesome", group = "awesome" }),
     awful.key({ "Control", "Mod1" }, "Del", awesome.quit,
         { description = "quit awesome", group = "awesome" }),
-    awful.key({ "Control", "Mod1" }, "l", function() awful.spawn("physlock") end,
-        { description = "lock system with physlock", group = "awesome" }),
+    awful.key({ "Control", "Mod1" }, "l", function() awful.spawn("xsecurelock") end,
+        { description = "lock system with xsecurelock", group = "awesome" }),
     -- prompt
     awful.key({ modkey }, "Tab", function() awful.screen.focused().mypromptbox:run() end,
         { description = "run prompt", group = "launcher" })

@@ -17,7 +17,7 @@ super + b
 	chromium
 
 ctrl + alt + l
-	physlock
+	xsecurelock
 
 Print
 	flameshot gui
