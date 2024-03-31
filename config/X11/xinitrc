@@ -35,6 +35,8 @@ dunst &
 sxhkd &
 flameshot &
 clipmenud &
+xset s 100 &
+xautolock -time 2 -locker "xsecurelock" -detectsleep &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 eww daemon &
 
