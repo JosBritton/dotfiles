@@ -64,7 +64,8 @@ zle_scratch_tmux() {
 zle -N zle_scratch_tmux
 
 zle_open_neovim_here() {
-	if [ -f "./.venv/bin/activate" ]; then . ./.venv/bin/activate; fi
+	if [ -f "./.venv/bin/activate" ]; then . ./.venv/bin/activate; \
+		elif [ -f "./.env/bin/activate" ]; then . ./.env/bin/activate; fi
 	nvim .
 	zle redisplay
 }
