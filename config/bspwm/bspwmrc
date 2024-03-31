@@ -39,6 +39,4 @@ xsetnvsync on &
 
 (pkill -USR1 -x sxhkd || true) &
 
-pkill stalonetray; stalonetray &
-pgrep -x stalonetray >/dev/null && eww close-all && \
-    eww open-many bar:primary bar:secondary --arg primary:screen=0 --arg secondary:screen=1
+eww close-all && eww open-many bar:primary bar:secondary --arg primary:screen=0 --arg secondary:screen=1

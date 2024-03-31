@@ -9,6 +9,12 @@
         :orientation "h"
         :space-evenly false
         :halign "end"
+    (systray :class "systray"
+             :spacing 8
+             :orientation "h"
+             :space-evenly true
+             ;; :icon-size 24
+             :prepend-new true)
     (button time)
     (button :tooltip longdate
             :onrightclick "echo '${date}' | xsel --clipboard && notify-send 'Copied to clipboard.'"
