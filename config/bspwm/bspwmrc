@@ -39,4 +39,4 @@ xsetnvsync on &
 
 (pkill -USR1 -x sxhkd || true) &
 
-eww close-all && eww open-many bar:primary bar:secondary --arg primary:screen=0 --arg secondary:screen=1
+eww close-all && eww open-many xbar:primary xbar:secondary --arg primary:screen=0 --arg secondary:screen=1
