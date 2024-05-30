@@ -6,7 +6,7 @@
 
 INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh pipewire \
 		  neovim steam bspwm xinit xorg-nvidia git nvidia systemd-units \
-		  xdg-dirs npm fastfetch fd rfv eww dmenu
+		  xdg-dirs npm fastfetch fd rfv eww
 
 define INSTALL_TARGET
 .PHONY: all
@@ -173,9 +173,6 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath bin/rfv)" \
 		"$(BIN_HOME)/rfv" \
 		"rfv"
-	./register "$$(realpath bin/dmenu_run_history)" \
-		"$(BIN_HOME)/dmenu_run_history" \
-		"dmenu"
 
 	./register "$$(realpath home/.zshenv)" \
 		"$(HOME)/.zshenv" \
