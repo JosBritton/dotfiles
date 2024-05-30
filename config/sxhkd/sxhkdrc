@@ -7,7 +7,7 @@ super + Return
 	alacritty
 
 super + Tab
-	dmenu_run_history -h 30
+	dmenu_run -h 30
 
 # reload sxhkd
 super + r
