@@ -6,7 +6,7 @@
 
 INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh pipewire \
 		  neovim steam bspwm xinit xorg-nvidia git nvidia systemd-units \
-		  xdg-dirs npm fastfetch fd rfv eww
+		  xdg-dirs npm fastfetch fd rfv eww convert_hex_xterm
 
 define INSTALL_TARGET
 .PHONY: all
@@ -179,6 +179,9 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath bin/rfv)" \
 		"$(BIN_HOME)/rfv" \
 		"rfv"
+	./register "$$(realpath bin/convert_hex_xterm)" \
+		"$(BIN_HOME)/convert_hex_xterm" \
+		"convert_hex_xterm"
 
 	./register "$$(realpath home/.zshenv)" \
 		"$(HOME)/.zshenv" \
