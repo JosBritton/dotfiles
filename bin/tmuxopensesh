@@ -6,7 +6,7 @@ _print_notif() {
 		tmux display-message "$@"
 		return
 	fi
-	notify-send -t 1250 "$@" || echo "$@"
+	notify-send -t 1250 "$@" &>/dev/null || echo "$@"
 }
 
 if ! command -v fzf &> /dev/null; then
