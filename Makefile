@@ -167,6 +167,9 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath bin/scratchtmux)" \
 		"$(BIN_HOME)/scratchtmux" \
 		"tmux"
+	./register "$$(realpath bin/bspfixsplits)" \
+		"$(BIN_HOME)/bspfixsplits" \
+		"bspwm"
 	./register "$$(realpath bin/setaudio)" \
 		"$(BIN_HOME)/setaudio" \
 		"pipewire"

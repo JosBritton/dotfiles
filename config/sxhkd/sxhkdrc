@@ -138,9 +138,13 @@ super + {_,shift + }{1-9,0}
 # move/resize
 #
 
-# reset window sizes on current workspace
-super + alt + 0
+# reset split ratios on root node and children
+super + alt + equal
 	bspc node @/ -E
+
+# fix splits
+super + shift + m
+	bspfixsplits
 
 # move a floating window
 super + {Left,Down,Up,Right}

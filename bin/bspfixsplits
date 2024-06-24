@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# does not work to spiral if more than one vertical split exists in a tree,
+# it will just make them all horizontal
+bspc query -N -d focused -n ".vertical.!leaf" | while read -r id; do
+    bspc query -T -n "$id" \
+        | jq -e 'select(.rectangle.height > .rectangle.width)' >/dev/null \
+        && bspc node "$id" --rotate 90
+done
