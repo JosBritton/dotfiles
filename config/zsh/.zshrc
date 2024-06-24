@@ -1,161 +1,189 @@
-[[ $- != *i* ]] && return
+[[ -o "interactive" ]] || return
 
-# mkdir -p "${XDG_DATA_HOME:-$HOME/.local/share}/zsh/functions/"
-# mkdir -p "${XDG_STATE_HOME:-$HOME/.local/state}/zsh/"
-# mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/"
+[ ! -e "${XDG_CACHE_HOME:-$HOME/.cache}/zsh" ] || mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+[ ! -e "${XDG_STATE_HOME:-$HOME/.local/state}/zsh" ] || mkdir -p "${XDG_STATE_HOME:-$HOME/.local/state}/zsh"
+[ ! -e "$HOME/.local/share/zsh/functions/Completion" ] || mkdir -p "$HOME/.local/share/zsh/functions/Completion"
 
-# todo:
-# 1. Suggest aliases
-# 2. Suggest `sudoedit` instead of `sudo nvim` whenever it is sent
+[[ ! -e "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/fzf-key-bindings.zsh" ]] \
+    && ln -sf /usr/share/fzf/key-bindings.zsh \
+    "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/fzf-key-bindings.zsh"
 
-bgnull() {
-	# terminal "launcher"
+[[ "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/fzf-key-bindings.zsh.zwc" \
+    -nt /usr/share/fzf/key-bindings.zsh ]] \
+    || zcompile -R -- "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/fzf-key-bindings.zsh.zwc" \
+    /usr/share/fzf/key-bindings.zsh
 
-	if [ "$EUID" -eq 0 ]; then
-		echo "You are too dangerous to be left alive."
-		return 1
-	fi
+[[ ! -e "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/fzf-completion.zsh" ]] \
+    && ln -sf /usr/share/fzf/completion.zsh \
+    "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/fzf-completion.zsh"
 
-	if [ -z "$WM_EXEC" ]; then
-		(&>/dev/null "$@" &)
-		return
-	fi
+[[ "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/fzf-completion.zsh.zwc" \
+    -nt /usr/share/fzf/completion.zsh ]] \
+    || zcompile -R -- "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/fzf-completion.zsh.zwc" \
+    /usr/share/fzf/completion.zsh
 
-	if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then
-		hyprctl dispatch exec "$@" >/dev/null
-		return
-	fi
+[[ ! -e "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/you-should-use.plugin.zsh" ]] \
+    && ln -sf /usr/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh \
+    "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/you-should-use.plugin.zsh"
 
-	# fallback
-	(&>/dev/null "$@" &)
+[[ "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/you-should-use.plugin.zsh.zwc" \
+    -nt /usr/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh ]] \
+    || zcompile -R -- "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/you-should-use.plugin.zsh.zwc" \
+    /usr/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh
+
+stty stop undef	 # disable ctrl-s to freeze terminal
+
+# source /usr/share/gitstatus/gitstatus.plugin.zsh
+source "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/you-should-use.plugin.zsh"
+source "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/fzf-key-bindings.zsh"
+source "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/fzf-completion.zsh"
+
+zstyle ":completion:*" use-cache on
+zstyle ":completion:*" cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache"
+zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"  # complete match any-case on lowercase only
+zstyle ':completion:*' verbose true
+zstyle ":completion:*" list-colors "${(s.:.)LS_COLORS}"
+zstyle ":completion:*" menu select=5  # only show menu for more than 5 options
+
+# start menu completion only if it could find no unambiguous initial string
+zstyle ':completion:*:correct:*'       insert-unambiguous true
+zstyle ':completion:*:corrections'     format $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
+zstyle ':completion:*:correct:*'       original true
+
+_comp_options+=(globdots)  # include dotfiles in glob for completion only
+
+# use fd for fzf path completion (place after plugin is loaded)
+_fzf_compgen_path() { fd --hidden --follow --exclude ".git" . "$1"; }
+_fzf_compgen_dir() { fd --type d --hidden --follow --exclude ".git" . "$1"; }
+
+# user completion directory
+fpath=("$HOME/.local/share/zsh/functions/Completion" $fpath)
+
+# load menu completion module *before* completion system
+zmodload zsh/complist
+# init completion system and dump to cache file
+autoload -Uz compinit
+compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION"
+# compile completion cache to word-code if updated
+[[ "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION.zwc" \
+    -nt "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION" ]] \
+    || zcompile -R -- "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION.zwc" \
+    "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION"
+
+restore_stdio() {
+    # fixes tmux: not a terminal error
+    exec </dev/tty
+    exec <&1
 }
 
-_restore_stdio() {
-	# fixes tmux: not a terminal error
-	exec </dev/tty
-	exec <&1
+clear_terminal_all() {
+    zle kill-whole-line
+    echoti clear 2>/dev/null
+    print -n -- "\e[H\e[2J\e[3J"
+    zle .reset-prompt
+    zle -R
 }
 
-zle_clear_term() {
-	zle kill-whole-line
-	zle clear-screen
-
-	printf "\33c\e[3J"
+open_tmux_scratch_prompt() {
+    scratchtmux
+    zle reset-prompt
 }
-zle -N zle_clear_term
 
-zle_switch_project() {
-	_restore_stdio
-	switchproj
-    if (( $? == 0 )); then
-        local precmd
-        for precmd in $precmd_functions; do
-            $precmd
-        done
-        zle reset-prompt
-    fi
+open_neovim_cwd() {
+    [ -f "./.venv/bin/activate" ] && . ./.venv/bin/activate
+    [ -f "./.env/bin/activate" ] && . ./.env/bin/activate
+    nvim .
+    zle redisplay
 }
-zle -N zle_switch_project
 
-zle_scratch_tmux() {
-	scratchtmux
-	zle reset-prompt
+open_project_session() {
+    restore_stdio
+    switchproj
+    zle reset-prompt
 }
-zle -N zle_scratch_tmux
 
-zle_open_neovim_here() {
-	if [ -f "./.venv/bin/activate" ]; then . ./.venv/bin/activate; \
-		elif [ -f "./.env/bin/activate" ]; then . ./.env/bin/activate; fi
-	nvim .
-	zle redisplay
+tmux_switch_session() {
+    restore_stdio
+    tmuxopensesh
+    zle reset-prompt
 }
-zle -N zle_open_neovim_here
 
-zle_reload_zsh() {
-	_restore_stdio
-	. ~/.zshrc
-	echo Reloaded ~/.zshrc
-	zle reset-prompt
-}
-zle -N zle_reload_zsh
-
-stty stop undef	# disable ctrl-s to freeze terminal
-setopt histignorealldups sharehistory interactive_comments
-
-fpath=(~/.local/share/zsh/functions/Completion $fpath)
-
+HISTDUP=erase
 HISTSIZE=10000000
 SAVEHIST=10000000
 HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
-#if ! [ -f "$HISTFILE" ]; then touch "$HISTFILE"; fi
 
-# eval "$(/usr/bin/dircolors -b)"
-eval "$(dircolors -p | perl -pe 's/^((CAP|S[ET]|O[TR]|M|E)\w+).*/$1 00/' | dircolors -)"
+local opts=(
+    histignorealldups
+    sharehistory
+    interactivecomments
+    appendhistory
+    histsavenodups
+    histignoredups
+    histfindnodups
+)
+setopt $opts
 
-alias nv="nvim" \
-	vim="nvim" \
-	vi="nvim" \
-	fetch="fastfetch" \
-	rsyncright="rsync --info=progress2 --no-i-r -a" \
-	ta="tmux attach -t" \
-	tad="tmux attach -d -t" \
-	ts="tmux new-session -s" \
-	tl="tmux list-sessions" \
-	tksv="tmux kill-server" \
-	tkss="tmux kill-session -t" \
-	tmuxconf="$EDITOR ~/.config/tmux/tmux.conf" \
-	pacex="pacman -Qe" \
-	pacorph="pacman -Qdt" \
-	pacexnoreq="pacman -Qet" \
-	statoctal="stat -c '%a'" \
-	ll="LC_ALL=C ls -hN --color=auto --group-directories-first -alF" \
-	la="LC_ALL=C ls -hN --color=auto --group-directories-first -A" \
-	l="LC_ALL=C ls -hN --color=auto --group-directories-first -CF"
+# generate LS_COLORS
+[[ ! -e "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dircolors.zsh" ]] \
+    && dircolors -p | perl -pe 's/^((CAP|S[ET]|O[TR]|M|E)\w+).*/$1 00/' | dircolors - > \
+    "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dircolors.zsh"
+[[ "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dircolors.zwc" \
+    -nt "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dircolors.zsh" ]] \
+    || zcompile -R -- "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dircolors.zwc" \
+    "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dircolors.zsh"
+source "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/dircolors.zsh"
 
-# launcher
-alias t="bgnull alacritty" \
-	f="bgnull thunar" \
+alias fetch="fastfetch" \
+    rsyncright="rsync --info=progress2 --no-i-r -a" \
+    ta="tmux attach -t" \
+    tad="tmux attach -d -t" \
+    ts="tmux new-session -s" \
+    tl="tmux list-sessions" \
+    tksv="tmux kill-server" \
+    tkss="tmux kill-session -t" \
+    tmuxconf="$EDITOR ~/.config/tmux/tmux.conf" \
+    pacex="pacman -Qe" \
+    pacorph="pacman -Qdt" \
+    pacexnoreq="pacman -Qet" \
+    statoctal="stat -c '%a'" \
+    ll="LC_ALL=C ls -hN --color=auto --group-directories-first -alF" \
+    la="LC_ALL=C ls -hN --color=auto --group-directories-first -A" \
+    l="LC_ALL=C ls -hN --color=auto --group-directories-first -CF" \
+    gs="git status" \
+    t="bgnull alacritty" \
+    f="bgnull thunar"
 
-# overwriting
+# overrides
 alias ls="LC_ALL=C ls -hN --color=auto --group-directories-first" \
-	journalctl="journalctl --all --full --reverse" \
-	grep="grep --color=auto" \
-	fgrep="fgrep --color=auto" \
-	egrep="egrep --color=auto" \
-	diff="diff --color=auto" \
-	ip="ip -color=auto"
+    journalctl="journalctl --all --full --reverse" \
+    grep="grep --color=auto" \
+    fgrep="fgrep --color=auto" \
+    egrep="egrep --color=auto" \
+    diff="diff --color=auto" \
+    ip="ip -color=auto"
 
-autoload -U compinit
-zstyle ':completion:*' cache-path ${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompcache
-# zstyle ':completion:*' menu select
-zmodload zsh/complist
-compinit -d ${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION
-_comp_options+=(globdots) # include dotfiles
+zle -N clear_terminal_all
+zle -N open_tmux_scratch_prompt
+zle -N open_project_session
+zle -N tmux_switch_session
+zle -N open_neovim_cwd
 
-compdef _path_commands bgnull # add PATH completion
+# use vi keys in tab complete menu
+bindkey -M menuselect "h" vi-backward-char
+bindkey -M menuselect "k" vi-up-line-or-history
+bindkey -M menuselect "l" vi-forward-char
+bindkey -M menuselect "j" vi-down-line-or-history
 
-source "/usr/share/fzf/completion.zsh"
+bindkey -v "^?" backward-delete-char
 
-_fzf_compgen_path() {
-	fd --hidden --follow . "$1"
-}
+bindkey -M menuselect "^[[Z" reverse-menu-complete  # enable shift+tab functionality
 
-_fzf_compgen_dir() {
-	fd --type d --hidden --follow . "$1"
-}
-
-# Use vim keys in tab complete menu:
-bindkey -M menuselect 'h' vi-backward-char
-bindkey -M menuselect 'k' vi-up-line-or-history
-bindkey -M menuselect 'l' vi-forward-char
-bindkey -M menuselect 'j' vi-down-line-or-history
-bindkey -v '^?' backward-delete-char
-
-bindkey "^f" zle_switch_project
-bindkey "^\`" zle_scratch_tmux
-bindkey "^n" zle_open_neovim_here
-bindkey "^r" zle_reload_zsh
-bindkey "^L" zle_clear_term
+bindkey "^f" open_project_session
+bindkey "^\`" open_tmux_scratch_prompt
+bindkey "^n" open_neovim_cwd
+bindkey "^L" clear_terminal_all
+bindkey "^j" tmux_switch_session
 
 bindkey "^[[1;5D" backward-word
 bindkey "^[[1;5C" forward-word
@@ -164,19 +192,162 @@ bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
 bindkey "^[[3~" delete-char
 
-source "/usr/share/fzf/key-bindings.zsh"
+local bold_prompt
+typeset -A promptcolors
+if [[ $COLORTERM = *(24bit|truecolor)* ]]; then
+    # credit: sindresorhus/hyper-snazzy
+    promptcolors[grey]="%F{#6c6c6c}"
+    promptcolors[red]="%F{#ff5c57}"
+    promptcolors[green]="%F{#5af78e}"
+    promptcolors[yellow]="%F{#f3f99d}"
+    promptcolors[blue]="%F{#57c7ff}"
+    promptcolors[magenta]="%F{#ff6ac1}"
+    promptcolors[cyan]="%F{#9aedfe}"
+    promptcolors[white]="%F{#f1f1f0}"
+elif [[ $TERM =~ 256color || $TERM == fbterm ]]; then
+    promptcolors[grey]="%F{242}"
+    promptcolors[red]="%F{203}"
+    promptcolors[green]="%F{84}"
+    promptcolors[yellow]="%F{229}"
+    promptcolors[blue]="%F{81}"
+    promptcolors[magenta]="%F{205}"
+    promptcolors[cyan]="%F{123}"
+    promptcolors[white]="%F{231}"
+else
+    promptcolors[grey]="%F{0}"
+    promptcolors[red]="%F{1}"
+    promptcolors[green]="%F{2}"
+    promptcolors[yellow]="%F{3}"
+    promptcolors[blue]="%F{4}"
+    promptcolors[magenta]="%F{5}"
+    promptcolors[cyan]="%F{6}"
+    promptcolors[white]="%F{7}"
+    bold_prompt=true
+fi
 
-precmd() {
-	echo -ne "\033]0;${USER}@${HOST}: ${PWD}\007" # window title
+local user
+if [[ $UID != 1000 ]]; then
+    user=%n
+fi
+
+local host
+if [[ -v SSH_CLIENT ]]; then
+    host=%m
+fi
+
+local promptdircolors=(
+"$promptcolors[red]"
+"$promptcolors[green]"
+"$promptcolors[yellow]"
+"$promptcolors[blue]"
+#"$promptcolors[magenta]"
+"$promptcolors[cyan]"
+)
+local prompt_prefix="${bold_prompt:+%B}${promptdircolors[$(( $RANDOM % ${#promptdircolors[@]} + 1 ))]}%50<...<%~%<<%f${bold_prompt:+%b} "
+local prompt_suffix="${bold_prompt:+%B}$promptcolors[white]${user}$promptcolors[grey]${user:+${host:+@}}${host}%#%f${bold_prompt:+%b} "
+
+unset RPROMPT
+PROMPT="$prompt_prefix$prompt_suffix"
+
+autoload -Uz vcs_info
+zstyle ":vcs_info:*" enable git  # enable only the vcs module for git
+
+# in format string ":" = separator
+zstyle ":vcs_info:*" actionformats "%b:%c%u:%a "
+zstyle ":vcs_info:*" formats "%b:%c%u "
+
+zstyle ":vcs_info:*" check-for-changes true
+zstyle ":vcs_info:*" get-revision true
+zstyle ":vcs_info:*" stagedstr "+"
+zstyle ":vcs_info:*" unstagedstr "!"
+zstyle ":vcs_info:git*+set-message:*" hooks git-untracked
++vi-git-untracked() {
+if [[ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" == "true" ]] && \
+    git status --porcelain | grep "??" &> /dev/null ; then
+    hook_com[staged]+="?"
+fi
 }
 
-# get 2 different randomized 8-bit ANSI colors from range for prompt
-local min=1
-local max=6
-local clr1="$((min + RANDOM % ((max - min) + 1)))"
-local clr2="$((min + RANDOM % (max - min)))"
-if [ "$clr2" -ge "$clr1" ]; then
-	clr2="$((clr2 + 1))"
-fi
-export PS1="%B[%F{$clr1}%n@%M %F{$clr2}%1~%F{reset}]%#%b "
+# backgroud launcher
+bgnull() {
+    [ "$EUID" -eq 0 ] && return
 
+    if [ -z "$WM_EXEC" ]; then
+        (&>/dev/null "$@" &)
+        return
+    fi
+
+    if [ "$XDG_CURRENT_DESKTOP" = "Hyprland" ]; then
+        hyprctl dispatch exec "$@" >/dev/null
+        return
+    fi
+
+    # fallback
+    (&>/dev/null "$@" &)
+}
+compdef _path_commands bgnull  # add PATH completion
+
+get_vcs_info() {
+    vcs_info
+    # `(s.:.)` split ":" in vcs formatted string (eliding empty)
+    echo "${bold_prompt:+%B}$promptcolors[grey]${(s.:.)vcs_info_msg_0_}%f${bold_prompt:+%b}"
+}
+
+get_vcs_info_complete() {
+    # read from fd
+    PROMPT="$prompt_prefix$(<&$1)$prompt_suffix"
+
+    # remove the handler and close the fd
+    zle -F "$1"
+    exec {1}<&-
+
+    zle && zle reset-prompt
+}
+
+get_vcs_info_precmd() {
+    typeset -g _PROMPT_ASYNC_FD
+
+    # close last fd if existent, discarding result
+    if [[ -n "$_PROMPT_ASYNC_FD" ]] && { true <&$_PROMPT_ASYNC_FD } 2>/dev/null; then
+        exec {_PROMPT_ASYNC_FD}<&-
+    fi
+
+    # get vcs_info in a background process
+    exec {_PROMPT_ASYNC_FD}< <(printf "%s" "$(get_vcs_info)")
+
+    # when fd is readable, call response handler
+    zle -F "$_PROMPT_ASYNC_FD" get_vcs_info_complete
+
+    # do not clear PROMPT, let it persist
+}
+
+print_title() {
+    print -Pn "\033]0;$@\007"
+}
+
+set_title_precmd() {
+    print_title "zsh %~"
+}
+
+set_title_preexec() {
+    print_title "${1//\%/%%}"
+}
+
+local zshcache_time="$(date +%s%N)"
+pacman_rehash() {
+    if [[ ! -a /var/cache/zsh/pacman ]]; then
+        return
+    fi
+
+    local paccache_time="$(date -r /var/cache/zsh/pacman +%s%N)"
+    if (( zshcache_time < paccache_time )); then
+        rehash
+        zshcache_time="$paccache_time"
+    fi
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd set_title_precmd
+add-zsh-hook precmd get_vcs_info_precmd
+add-zsh-hook precmd pacman_rehash
+add-zsh-hook preexec set_title_preexec

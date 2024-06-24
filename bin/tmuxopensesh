@@ -1,0 +1,30 @@
+#!/bin/zsh
+set -e
+
+_print_notif() {
+	if [ ! -z $TMUX ]; then
+		tmux display-message "$@"
+		return
+	fi
+	notify-send -t 1250 "$@" || echo "$@"
+}
+
+if ! command -v fzf &> /dev/null; then
+		_print_notif "Error: Fzf not installed!"
+		exit 1
+fi
+
+local s="$(tmux list-sessions -F '#{?session_attached,,#{session_name}}' 2>/dev/null || return)"
+if [[ -z $s ]]; then
+		_print_notif "No tmux sessions to switch to"
+		exit 1
+fi
+
+local selected="$(echo "$s" | sed '/^$/d' | fzf --tmux)"
+[[ -z $selected ]] && return
+if [[ -z $TMUX ]]; then
+		tmux attach-session -t "$selected"
+		exit
+fi
+
+tmux switch-client -t "$selected"

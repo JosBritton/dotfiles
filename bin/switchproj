@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/zsh
+set -e
 # credit: https://github.com/ThePrimeagen/.dotfiles
 
 if ! command -v fzf &> /dev/null; then
@@ -9,8 +10,12 @@ fi
 if [[ $# -eq 1 ]]; then
     selected=$1
 else
-    # selected=$(fd --follow . ~/Sync --exact-depth 1 -t d -E ".*" | fzf)
-    selected=$((echo "$HOME/Sync/dotfiles/config/nvim"; find -L ~/Sync -mindepth 1 -maxdepth 1 -type d -not -name ".*") | fzf)
+    if ! command -v fd &> /dev/null; then
+        selected=$((echo "$HOME/Sync/dotfiles/config/nvim"; find -L ~/Sync -mindepth 1 -maxdepth 1 -type d -not -name ".*") | fzf --tmux)
+    else
+        # fd appends a trailing slash to directories unless you use an external command
+        selected="$((echo "$HOME/Sync/dotfiles/config/nvim"; fd -L . ~/Sync --exact-depth 1 -t d -E ".*" -x echo) | fzf --tmux)"
+    fi
 fi
 
 if [[ -z $selected ]]; then
