@@ -253,8 +253,8 @@ autoload -Uz vcs_info
 zstyle ":vcs_info:*" enable git  # enable only the vcs module for git
 
 # in format string ":" = separator
-zstyle ":vcs_info:*" actionformats "%b:%c%u:%a "
-zstyle ":vcs_info:*" formats "%b:%c%u "
+zstyle ":vcs_info:*" actionformats "%b:%c%u:%a:"
+zstyle ":vcs_info:*" formats "%b:%c%u:"
 
 zstyle ":vcs_info:*" check-for-changes true
 zstyle ":vcs_info:*" get-revision true
