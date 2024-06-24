@@ -161,6 +161,9 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath bin/switchproj)" \
 		"$(BIN_HOME)/switchproj" \
 		"tmux"
+	./register "$$(realpath bin/tmuxopensesh)" \
+		"$(BIN_HOME)/tmuxopensesh" \
+		"tmux"
 	./register "$$(realpath bin/scratchtmux)" \
 		"$(BIN_HOME)/scratchtmux" \
 		"tmux"
