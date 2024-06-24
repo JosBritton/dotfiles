@@ -238,10 +238,7 @@ fi
 local promptdircolors=(
 "$promptcolors[red]"
 "$promptcolors[green]"
-"$promptcolors[yellow]"
 "$promptcolors[blue]"
-#"$promptcolors[magenta]"
-"$promptcolors[cyan]"
 )
 local prompt_prefix="${bold_prompt:+%B}${promptdircolors[$(( $RANDOM % ${#promptdircolors[@]} + 1 ))]}%50<...<%~%<<%f${bold_prompt:+%b} "
 local prompt_suffix="${bold_prompt:+%B}$promptcolors[white]${user}$promptcolors[grey]${user:+${host:+@}}${host}%#%f${bold_prompt:+%b} "
