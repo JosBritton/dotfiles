@@ -159,7 +159,8 @@ alias fetch="fastfetch" \
     l="LC_ALL=C ls -hN --color=auto --group-directories-first -CF" \
     gs="git status" \
     t="bgnull alacritty" \
-    f="bgnull thunar"
+    f="bgnull thunar" \
+    gb="gh browse"
 
 # overrides
 alias ls="LC_ALL=C ls -hN --color=auto --group-directories-first" \
