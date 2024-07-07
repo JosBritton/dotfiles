@@ -260,19 +260,42 @@ autoload -Uz vcs_info
 zstyle ":vcs_info:*" enable git  # enable only the vcs module for git
 
 # in format string ":" = separator
-zstyle ":vcs_info:*" actionformats "%b:%c%u:%a:"
-zstyle ":vcs_info:*" formats "%b:%c%u:"
+zstyle ":vcs_info:*" actionformats "%b:%c%u:%m:%a:"
+zstyle ":vcs_info:*" formats "%b:%c%u:%m:"
 
 zstyle ":vcs_info:*" check-for-changes true
 zstyle ":vcs_info:*" get-revision true
 zstyle ":vcs_info:*" stagedstr "+"
 zstyle ":vcs_info:*" unstagedstr "!"
-zstyle ":vcs_info:git*+set-message:*" hooks git-untracked
+
+# more: https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
+zstyle ":vcs_info:git*+set-message:*" hooks git-untracked git-remote
+
 +vi-git-untracked() {
-if [[ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" == "true" ]] && \
-    git status --porcelain | grep "??" &> /dev/null ; then
-    hook_com[staged]+="?"
-fi
+    if [[ "$(git rev-parse --is-inside-work-tree 2> /dev/null)" == "true" ]] && \
+        git status --porcelain | grep "??" &> /dev/null ; then
+        hook_com[staged]+="?"
+    fi
+}
+
++vi-git-remote() {
+    local ahead behind
+    local -a gitstatus
+
+    # exit early in case the worktree is on a detached HEAD
+    git rev-parse ${hook_com[branch]}@{upstream} >/dev/null 2>&1 || return 0
+
+    local -a ahead_and_behind=(
+        $(git rev-list --left-right --count HEAD...${hook_com[branch]}@{upstream} 2>/dev/null)
+    )
+
+    ahead=${ahead_and_behind[1]}
+    behind=${ahead_and_behind[2]}
+
+    (( $ahead )) && gitstatus+=( "+${ahead}" )
+    (( $behind )) && gitstatus+=( "-${behind}" )
+
+    hook_com[misc]+=${(j:/:)gitstatus}
 }
 
 # backgroud launcher
