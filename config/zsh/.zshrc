@@ -254,6 +254,8 @@ local prompt_suffix="${bold_prompt:+%B}$promptcolors[white]${user}$promptcolors[
 unset RPROMPT
 PROMPT="$prompt_prefix$prompt_suffix"
 
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
 autoload -Uz vcs_info
 zstyle ":vcs_info:*" enable git  # enable only the vcs module for git
 
