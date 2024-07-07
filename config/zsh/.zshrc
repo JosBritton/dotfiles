@@ -325,12 +325,19 @@ get_vcs_info() {
 
 get_vcs_info_complete() {
     # read from fd
-    PROMPT="$prompt_prefix$(<&$1)$prompt_suffix"
+    local render_prompt
+    render_prompt="$prompt_prefix$(<&$1)$prompt_suffix"
 
     # remove the handler and close the fd
     zle -F "$1"
     exec {1}<&-
 
+    if [ "$PROMPT" = "$render_prompt" ]; then
+        return
+    fi
+
+    # redraw if necessary
+    PROMPT="$render_prompt"
     zle && zle reset-prompt
 }
 
