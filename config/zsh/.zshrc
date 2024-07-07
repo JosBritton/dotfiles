@@ -31,9 +31,16 @@
     || zcompile -R -- "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/you-should-use.plugin.zsh.zwc" \
     /usr/share/zsh/plugins/zsh-you-should-use/you-should-use.plugin.zsh
 
+# [[ ! -e "${ZDOTDIR:-$HOME}/vi.zsh" || "${ZDOTDIR:-$HOME}/vi.zsh.zwc" -nt "${ZDOTDIR:-$HOME}/vi.zsh" ]] \
+#     || zcompile -R -- "${ZDOTDIR:-$HOME}/vi.zsh.zwc" "${ZDOTDIR:-$HOME}/vi.zsh"
+
+# [[ ! -e "${ZDOTDIR:-$HOME}/tmux.zsh" || "${ZDOTDIR:-$HOME}/tmux.zsh.zwc" -nt "${ZDOTDIR:-$HOME}/tmux.zsh" ]] \
+#     || zcompile -R -- "${ZDOTDIR:-$HOME}/tmux.zsh.zwc" "${ZDOTDIR:-$HOME}/tmux.zsh"
+
 stty stop undef	 # disable ctrl-s to freeze terminal
 
-# source /usr/share/gitstatus/gitstatus.plugin.zsh
+# source "${ZDOTDIR:-$HOME}/vi.zsh"
+# source "${ZDOTDIR:-$HOME}/tmux.zsh"
 source "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/you-should-use.plugin.zsh"
 source "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/fzf-key-bindings.zsh"
 source "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/fzf-completion.zsh"
