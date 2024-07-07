@@ -2,6 +2,7 @@ export FZF_DEFAULT_OPTS="--bind='ctrl-h:backward-kill-word'"
 export FZF_DEFAULT_COMMAND="git ls-files --cached --others --exclude-standard | fd --type f --type l --follow"
 export EDITOR=nvim
 export PATH="$PATH:$HOME/.local/bin"
+[ -z $GOPATH ] || export PATH="$PATH:$GOPATH/bin"
 # export PATH="$HOME/.local/lib/python3.11/site-packages:$PATH"
 # export PATH="$HOME/.local/share/npm/bin:$PATH"
 
