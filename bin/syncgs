@@ -1,0 +1,7 @@
+#!/bin/sh
+find "/home/$USER/Sync" -maxdepth 2 -mindepth 2 -name .git -type d -execdir zsh -c '
+    printf "---\n"
+    pwd
+    git status --short
+    printf "\n"
+' \; -prune
