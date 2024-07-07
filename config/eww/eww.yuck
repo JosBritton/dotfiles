@@ -57,8 +57,7 @@
 (defpoll longdate :interval "10s"
     "date '+%a, %b %d %Y'")
 
-(defpoll time :interval "10s"
-    "date '+%H:%M'")
+(deflisten time "clock")
 
 (defpoll date :interval "10s"
     "date '+%Y-%m-%d'")
