@@ -6,7 +6,9 @@
     },
     "logo": "arch_small",
     "display": {
-        "binaryPrefix": "iec",
+        "size": {
+            "binaryPrefix": "iec"
+        },
         "color": "dim_white"
     },
     "modules": [
