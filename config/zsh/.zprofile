@@ -10,5 +10,7 @@ export XCURSOR_SIZE=24
 export LESS='-R --use-color -Dd+r$Du+b$'
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
+export LIBVA_DRIVER_NAME="nvidia"
+export MOZ_DRM_DEVICE="card0"
 
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
