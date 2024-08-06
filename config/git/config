@@ -12,3 +12,5 @@
 	allowedSignersFile = ~/.config/git/allowed_signers
 [init]
 	defaultBranch = master
+[pager]
+	branch = false
