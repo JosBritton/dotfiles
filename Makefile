@@ -7,7 +7,7 @@
 INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh pipewire \
 		  neovim steam bspwm xinit xorg-nvidia git nvidia systemd-units \
 		  xdg-dirs npm fastfetch fd rfv eww convert_hex_xterm red_oxide \
-		  terraform syncgs
+		  terraform syncgs ssh
 
 define INSTALL_TARGET
 .PHONY: all
@@ -196,6 +196,9 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath home/.zshenv)" \
 		"$(HOME)/.zshenv" \
 		"zsh"
+	./register "$$(realpath home/.ssh/config)" \
+		"$(HOME)/.ssh/config" \
+		"ssh"
 	./register "$$(realpath home/.steam/steam/steam_dev.cfg)" \
 		"$(HOME)/.steam/steam/steam_dev.cfg" \
 		"steam"
