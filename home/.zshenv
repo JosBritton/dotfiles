@@ -26,5 +26,3 @@ export TF_CLI_CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/terraform/cli.tfrc"
 # export QT_STYLE_OVERRIDE="Adwaita-Dark" 
 
 export GTK_THEME="Adwaita:dark"
-alias nvidia-settings="nvidia-settings --config="${XDG_CONFIG_HOME:-$HOME/.config}/nvidia/settings""
-alias yarn='yarn --use-yarnrc "${XDG_CONFIG_HOME:-$HOME/.config}/yarn/config"'

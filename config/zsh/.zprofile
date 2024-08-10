@@ -14,3 +14,6 @@ export LIBVA_DRIVER_NAME="nvidia"
 export MOZ_DRM_DEVICE="card0"
 
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+
+alias nvidia-settings="nvidia-settings --config="${XDG_CONFIG_HOME:-$HOME/.config}/nvidia/settings""
+alias yarn='yarn --use-yarnrc "${XDG_CONFIG_HOME:-$HOME/.config}/yarn/config"'
