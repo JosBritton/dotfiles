@@ -19,6 +19,7 @@ bspc config gapless_monocle true
 bspc config merge_overlapping_monitors
 
 bspc rule -a thunderbird desktop="^2"
+bspc rule -a discord desktop="^3"
 
 bspc config normal_border_color	"#595959"
 bspc config active_border_color	"#595959"
@@ -36,6 +37,10 @@ bspc config window_gap 6
 setaudio &
 nvidia-settings --load-config-only &
 xsetnvsync on &
+
+pgrep -x thunderbird >/dev/null || thunderbird &
+pgrep -x "com.discordapp." >/dev/null || flatpak run com.discordapp.Discord &
+caffeine &
 
 (pkill -USR1 -x sxhkd || true) &
 
