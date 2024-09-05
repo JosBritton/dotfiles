@@ -12,6 +12,7 @@ export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
 export LIBVA_DRIVER_NAME="nvidia"
 export MOZ_DRM_DEVICE="card0"
+export EU4GAMEDIR="$HOME/.local/share/Steam/steamapps/common/Europa Universalis IV"
 
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
