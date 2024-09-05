@@ -1,8 +1,8 @@
 #!/bin/sh
-schiit_sink="$(pactl list short sinks | grep alsa_output.usb-Schiit | cut -f 2)"
-scarlett_sink="$(pactl list short sources | grep alsa_input.usb-Focusrite | cut -f 2)"
+sink="$(pactl list short sinks | grep alsa_output.usb-Schiit | cut -f 2)"
+source="$(pactl list short sources | grep alsa_input.usb-Soundcraft_Notepad | cut -f 2)"
 
-pactl set-default-sink "$schiit_sink"
-pactl set-sink-volume "$schiit_sink" 65536
-pactl set-default-source "$scarlett_sink"
-pactl set-source-volume "$scarlett_sink" 65536
+pactl set-default-sink "$sink"
+pactl set-sink-volume "$sink" 65536
+pactl set-default-source "$source"
+pactl set-source-volume "$source" 65536
