@@ -34,7 +34,7 @@
     (button :class {activeworkspace == (screen == 0 ? 3 : 7) ? "active" : "inactive"}
             :onclick "bspc desktop -f ${screen == 0 ? 3 : 7}" {screen == 0 ? 3 : 7})
     (button :class {activeworkspace == (screen == 0 ? 4 : 8) ? "active" : "inactive"}
-            :onclick "bspc desktop -f ${screen == 0 ? 3 : 8}" {screen == 0 ? 4 : 8})))
+            :onclick "bspc desktop -f ${screen == 0 ? 4 : 8}" {screen == 0 ? 4 : 8})))
 
 ;; (defwidget workspaces []
 ;; (literal :content workspaces))
