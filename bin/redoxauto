@@ -4,6 +4,11 @@ red_oxide transcode --torrent-directory /tmp \
     -c "${XDG_CONFIG_HOME:-$HOME/.config}/red_oxide/red_oxide.config.json" \
     "$@"
 
-cp /tmp/*.torrent /mnt/artemis/data/bt2/watch/
-cp /tmp/*.torrent "$HOME/Music/oxide/"
+if command -v xdg-user-dir &> /dev/null; then
+    music_dir="$(xdg-user-dir MUSIC)"
+    [ -z "$music_dir" ] || [ "$music_dir" = "$HOME" ] && unset music_dir
+fi
+
+cp /tmp/*.torrent "${BT_WATCH_DIR:-/mnt/artemis/data/media/bt2/watch}/"
+cp /tmp/*.torrent "${music_dir:-$HOME/Music}/oxide/"
 rm /tmp/*.torrent
