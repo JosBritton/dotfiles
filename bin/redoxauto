@@ -1,7 +1,13 @@
 #!/bin/bash
 set -e
-red_oxide transcode --torrent-directory /tmp \
-    -c "${XDG_CONFIG_HOME:-$HOME/.config}/red_oxide/red_oxide.config.json" \
+
+REDOX_CONFIG=${REDOX_CONFIG:-${XDG_CONFIG_HOME:-$HOME/.config}/red_oxide}
+mkdir -p "$REDOX_CONFIG/"
+REDOX_TMP=${REDOX_TMP:-/tmp/red_oxide}
+mkdir -p "$REDOX_TMP/"
+
+red_oxide transcode --torrent-directory "$REDOX_TMP" \
+    -c "$REDOX_CONFIG/red_oxide.config.json" \
     "$@"
 
 if command -v xdg-user-dir &> /dev/null; then
@@ -9,6 +15,14 @@ if command -v xdg-user-dir &> /dev/null; then
     [ -z "$music_dir" ] || [ "$music_dir" = "$HOME" ] && unset music_dir
 fi
 
-cp /tmp/*.torrent "${BT_WATCH_DIR:-/mnt/artemis/data/media/bt2/watch}/"
-cp /tmp/*.torrent "${music_dir:-$HOME/Music}/oxide/"
-rm /tmp/*.torrent
+music_dir="${music_dir:-$HOME/Music}"
+[ -d "$(realpath "$music_dir")" ] || music_dir="$HOME"
+redox_music_dir="$music_dir/oxide/"
+mkdir -p "$redox_music_dir"
+cp "$REDOX_TMP"/*.torrent "$redox_music_dir"
+
+BT_WATCH_DIR="${BT_WATCH_DIR:-/mnt/artemis/data/media/bt2/watch}"
+mkdir -p "$BT_WATCH_DIR/"
+cp "$REDOX_TMP"/*.torrent "$BT_WATCH_DIR/"
+
+rm -f "$REDOX_TMP"/*.torrent
