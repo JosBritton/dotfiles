@@ -10,6 +10,9 @@ red_oxide transcode --torrent-directory "$REDOX_TMP" \
     -c "$REDOX_CONFIG/red_oxide.config.json" \
     "$@"
 
+# red_oxide does not properly emit exit codes
+ls "$REDOX_TMP"/*.torrent &> /dev/null || exit 1
+
 if command -v xdg-user-dir &> /dev/null; then
     music_dir="$(xdg-user-dir MUSIC)"
     [ -z "$music_dir" ] || [ "$music_dir" = "$HOME" ] && unset music_dir
