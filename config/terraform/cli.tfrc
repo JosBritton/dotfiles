@@ -1,6 +1,0 @@
-provider_installation {
-  dev_overrides {
-    "telmate/proxmox" = "/home/johbii/Sync/terraform-provider-proxmox/bin"
-  }
-  direct {}
-}
