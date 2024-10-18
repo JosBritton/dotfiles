@@ -7,7 +7,7 @@
 INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh pipewire \
 		  neovim steam bspwm xinit xorg-nvidia git nvidia systemd-units \
 		  xdg-dirs npm fastfetch fd rfv eww convert_hex_xterm red_oxide \
-		  syncgs
+		  syncgs firefox
 
 define INSTALL_TARGET
 .PHONY: all
@@ -206,8 +206,8 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath home/.mozilla/firefox/profiles.ini)" \
 		"$(HOME)/.mozilla/firefox/profiles.ini" \
 		"firefox"
-	./register "$$(realpath home/.mozilla/firefox/dotfiles-profile/user.js)" \
-		"$(HOME)/.mozilla/firefox/dotfiles-profile/user.js" \
+	./register "$$(realpath home/.mozilla/firefox/j0hhqujf.default-release/user.js)" \
+		"$(HOME)/.mozilla/firefox/j0hhqujf.default-release/user.js" \
 		"firefox"
 
 	./register "$$(realpath home/.thunderbird/installs.ini)" \
