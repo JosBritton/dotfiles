@@ -1,6 +1,7 @@
 user_pref("network.IDN_show_punycode", true);
 // disk cache in memory
 user_pref("browser.cache.disk.parent_directory", "/run/user/1000/firefox");
+user_pref("findbar.highlightAll", true);
 user_pref("full-screen-api.warning.timeout", 0);
 user_pref("layout.frame_rate", 288);
 // hybrid post-quantum key exchange
