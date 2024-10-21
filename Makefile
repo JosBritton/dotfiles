@@ -158,7 +158,7 @@ register: $(REGISTER_RUN_DIR)
 		"$(XDG_CONFIG_HOME)/terraform" \
 		"terraform"
 
-	./register "$$(realpath bin/zsh/Completion)" \
+	./register "$$(realpath data/zsh/functions/Completion)" \
 		"$(XDG_DATA_HOME)/zsh/functions/Completion" \
 		"zsh"
 
