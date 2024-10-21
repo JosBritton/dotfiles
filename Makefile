@@ -79,6 +79,9 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath config/nvim)" \
 		"$(XDG_CONFIG_HOME)/nvim" \
 		"neovim"
+	./register "$$(realpath data/nvim/en.utf-8.add)" \
+		"$(XDG_DATA_HOME)/nvim/en.utf-8.add" \
+		"neovim"
 	./register "$$(realpath config/waybar)" \
 		"$(XDG_CONFIG_HOME)/waybar" \
 		"waybar"
