@@ -51,8 +51,6 @@ export REGISTER_RUN_DIR
 .SILENT: register
 .PHONY: register
 register: $(REGISTER_RUN_DIR)
-	mkdir -p $(REGISTER_RUN_DIR)
-
 	$(file >$(REGISTER_RUN_DIR)/uninstall.make,$(UNINSTALL_TARGET))
 	echo "" >> "$(REGISTER_RUN_DIR)/uninstall.make"
 
