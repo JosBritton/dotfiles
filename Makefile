@@ -29,15 +29,15 @@ endef
 
 .PHONY: install
 install: register
-	@$(MAKE) --no-print-directory -f "$(REGISTER_RUN_DIR)/install.make" all
+	@$(MAKE) -s --no-print-directory -f "$(REGISTER_RUN_DIR)/install.make" all
 
 .PHONY: uninstall
 uninstall: register
-	@$(MAKE) --no-print-directory -f "$(REGISTER_RUN_DIR)/uninstall.make" all
+	@$(MAKE) -s --no-print-directory -f "$(REGISTER_RUN_DIR)/uninstall.make" all
 
 .PHONY: installcheck
 installcheck: register
-	@$(MAKE) --no-print-directory -f "$(REGISTER_RUN_DIR)/installcheck.make" all
+	@$(MAKE) -s --no-print-directory -f "$(REGISTER_RUN_DIR)/installcheck.make" all
 
 XDG_CONFIG_HOME  ?= "$(HOME)/.config"
 XDG_DATA_HOME    ?= "$(HOME)/.local/share"
