@@ -1,6 +1,6 @@
 [env]
 COLORTERM = "truecolor"
-TERM = "xterm-256color"
+TERM = "alacritty"
 
 [font]
 size = 11.0
