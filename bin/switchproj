@@ -1,40 +1,43 @@
-#!/bin/zsh
+#!/bin/sh
 set -e
-# credit: https://github.com/ThePrimeagen/.dotfiles
 
-if ! command -v fzf &> /dev/null; then
-    echo Error: Fzf not installed!
-    exit 1
+which tmux > /dev/null 2>&1 || \
+    (echo tmux not found; exit 1)
+
+selected=$1
+if [ $# -ne 1 ]; then
+    which fzf > /dev/null 2>&1 || \
+        (echo fzf not found; exit 1)
+
+    # ex: additional_dirs="/path/to/dir\n/path/to/dir2"
+    additional_dirs="$HOME/Sync/dotfiles/config/nvim"
+
+    # use fd when possible, fallback to find
+    which fd > /dev/null 2>&1 && \
+        out="$(fd -L . ~/Sync --exact-depth 1 -t d -x echo)" || \
+        out="$(find -L ~/Sync -mindepth 1 -maxdepth 1 -type d -not -name ".*")"
+
+    selected="$( (printf '%s\n%s' "$out" "$additional_dirs") | fzf --tmux)"
 fi
 
-if [[ $# -eq 1 ]]; then
-    selected=$1
-else
-    if ! command -v fd &> /dev/null; then
-        selected=$((echo "$HOME/Sync/dotfiles/config/nvim"; find -L ~/Sync -mindepth 1 -maxdepth 1 -type d -not -name ".*") | fzf --tmux)
-    else
-        # fd appends a trailing slash to directories unless you use an external command
-        selected="$((echo "$HOME/Sync/dotfiles/config/nvim"; fd -L . ~/Sync --exact-depth 1 -t d -E ".*" -x echo) | fzf --tmux)"
-    fi
-fi
-
-if [[ -z $selected ]]; then
-    exit 0
-fi
+# no selection, nothing to do
+[ -z "$selected" ] && exit
 
 selected_name=$(basename "$selected" | tr . _)
-if [[ -z $TMUX ]] && ! pgrep tmux &> /dev/null; then
+
+# not in tmux session and tmux is not running
+if [ -z "$TMUX" ] && ! pgrep tmux > /dev/null 2>&1; then
     tmux new-session -s "$selected_name" -c "$selected"
-    exit 0
+    exit
 fi
 
-if ! tmux has-session -t "$selected_name" 2> /dev/null; then
+# tmux session already exists
+tmux has-session -t "$selected_name" 2> /dev/null 2>&1 || \
     tmux new-session -ds "$selected_name" -c "$selected"
-fi
 
-if [[ -z $TMUX ]]; then
-    tmux attach-session -t "$selected_name"
-    exit 0
-fi
+# not in tmux session and tmux is running
+[ -z "$TMUX" ] && \
+    (tmux attach-session -t "$selected_name"; exit)
 
+# inside tmux session
 tmux switch-client -t "$selected_name"
