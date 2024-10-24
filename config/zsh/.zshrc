@@ -154,16 +154,16 @@ alias fetch="fastfetch" \
     pacorph="pacman -Qdt" \
     pacexnoreq="pacman -Qet" \
     statoctal="stat -c '%a'" \
-    ll="LC_ALL=C ls -hN --color=auto --group-directories-first -alF" \
-    la="LC_ALL=C ls -hN --color=auto --group-directories-first -A" \
-    l="LC_ALL=C ls -hN --color=auto --group-directories-first -CF" \
+    ll="LC_ALL=C ls -hN1F --color=auto --group-directories-first -al" \
+    la="LC_ALL=C ls -hN1F --color=auto --group-directories-first -A" \
+    l="LC_ALL=C ls -hN1F --color=auto --group-directories-first" \
     gs="git status" \
     t="bgnull alacritty" \
     f="bgnull thunar" \
     gb="gh browse"
 
 # overrides
-alias ls="LC_ALL=C ls -hN --color=auto --group-directories-first" \
+alias ls="LC_ALL=C ls -hN1F --color=auto --group-directories-first" \
     journalctl="journalctl --all --full --reverse" \
     grep="grep --color=auto" \
     fgrep="fgrep --color=auto" \
