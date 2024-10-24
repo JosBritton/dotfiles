@@ -14,8 +14,8 @@ if [ $# -ne 1 ]; then
 
     # use fd when possible, fallback to find
     which fd > /dev/null 2>&1 && \
-        out="$(fd -L . ~/Sync --exact-depth 1 -t d -x echo)" || \
-        out="$(find -L ~/Sync -mindepth 1 -maxdepth 1 -type d -not -name ".*")"
+        out="$(fd -L . ~/Sync ~/Sync/alt --exact-depth 1 -E alt/ -t d -x echo)" || \
+        out="$(find -L ~/Sync ~/Sync/alt -mindepth 1 -maxdepth 1 -type d -not -name ".*" -not -name alt)"
 
     selected="$( (printf '%s\n%s' "$out" "$additional_dirs") | fzf --tmux)"
 fi
