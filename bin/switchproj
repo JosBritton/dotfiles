@@ -36,7 +36,7 @@ if [ -z "$TMUX" ] && ! pgrep tmux > /dev/null 2>&1; then
 fi
 
 # tmux session already exists
-tmux has-session -t "$selected_name" 2> /dev/null 2>&1 || \
+tmux has-session -t "$selected_name" > /dev/null 2>&1 || \
     tmux new-session -ds "$selected_name" -c "$selected"
 
 # not in tmux session and tmux is running
