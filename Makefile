@@ -7,7 +7,7 @@
 INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh pipewire \
 		  neovim steam bspwm xinit xorg-nvidia git nvidia systemd-units \
 		  xdg-dirs npm fastfetch fd rfv eww convert_hex_xterm red_oxide \
-		  syncgs firefox yamllint
+		  syncgs firefox yamllint bash
 
 define INSTALL_TARGET
 .PHONY: all
@@ -157,6 +157,9 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath config/yamllint)" \
 		"$(XDG_CONFIG_HOME)/yamllint" \
 		"yamllint"
+	./register "$$(realpath config/bash)" \
+		"$(XDG_CONFIG_HOME)/bash" \
+		"bash"
 
 	./register "$$(realpath data/zsh/functions/Completion)" \
 		"$(XDG_DATA_HOME)/zsh/functions/Completion" \

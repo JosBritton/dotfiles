@@ -1,0 +1,6 @@
+bind 'set show-all-if-ambiguous on'
+bind 'set menu-complete-display-prefix on'
+bind 'set colored-stats on'
+#bind 'set colored-completion-prefix on'
+bind '"\e[Z": menu-complete-backward'
+bind TAB:menu-complete
