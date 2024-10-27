@@ -11,6 +11,8 @@ export LESS='-R --use-color -Dd+r$Du+b$'
 export MANPAGER="less -R --use-color -Dd+r -Du+b"
 export MANROFFOPT="-P -c"
 export LIBVA_DRIVER_NAME="nvidia"
+export MOZ_DISABLE_RDD_SANDBOX=1
+export __EGL_VENDOR_LIBRARY_FILENAMES="/usr/share/glvnd/egl_vendor.d/10_nvidia.json"
 export MOZ_DRM_DEVICE="card0"
 export EU4GAMEDIR="$HOME/.local/share/Steam/steamapps/common/Europa Universalis IV"
 
