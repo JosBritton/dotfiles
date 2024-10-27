@@ -209,8 +209,14 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath home/.mozilla/firefox/profiles.ini)" \
 		"$(HOME)/.mozilla/firefox/profiles.ini" \
 		"firefox"
-	./register "$$(realpath home/.mozilla/firefox/j0hhqujf.default-release/user.js)" \
+	./register "$$(realpath home/.mozilla/firefox/user.js)" \
 		"$(HOME)/.mozilla/firefox/j0hhqujf.default-release/user.js" \
+		"firefox"
+	./register "$$(realpath home/.mozilla/firefox/user.js)" \
+		"$(HOME)/.mozilla/firefox/k1yfl65t.alt/user.js" \
+		"firefox"
+	./register "$$(realpath home/.mozilla/firefox/user.js)" \
+		"$(HOME)/.mozilla/firefox/j4bekqo8.other/user.js" \
 		"firefox"
 
 	./register "$$(realpath home/.thunderbird/installs.ini)" \
