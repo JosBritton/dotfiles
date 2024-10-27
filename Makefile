@@ -164,6 +164,9 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath data/zsh/functions/Completion)" \
 		"$(XDG_DATA_HOME)/zsh/functions/Completion" \
 		"zsh"
+	./register "$$(realpath data/applications/Alacritty.desktop)" \
+		"$(XDG_DATA_HOME)/applications/Alacritty.desktop" \
+		"alacritty"
 
 	./register "$$(realpath bin/switchproj)" \
 		"$(BIN_HOME)/switchproj" \

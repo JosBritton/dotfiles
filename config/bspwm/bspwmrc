@@ -39,6 +39,7 @@ bspc config window_gap 6
 setaudio &
 nvidia-settings --load-config-only &
 xsetnvsync on &
+alacritty --daemon &
 
 pgrep -x thunderbird >/dev/null || thunderbird &
 pgrep -x "com.discordapp." >/dev/null || flatpak run com.discordapp.Discord &
