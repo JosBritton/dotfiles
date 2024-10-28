@@ -4,7 +4,7 @@
 #	1. add alias to list below if you want to have it installed
 #	2. register your link under `register:` (follow the comment)
 
-INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh \
+INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh pipewire \
 		  neovim steam bspwm xinit xorg-nvidia git nvidia systemd-units \
 		  xdg-dirs npm fastfetch fd rfv eww convert_hex_xterm red_oxide \
 		  syncgs firefox yamllint bash ffmpeg
@@ -167,6 +167,12 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath config/bash)" \
 		"$(XDG_CONFIG_HOME)/bash" \
 		"bash"
+	./register "$$(realpath config/pipewire)" \
+		"$(XDG_CONFIG_HOME)/pipewire" \
+		"pipewire"
+	./register "$$(realpath config/wireplumber)" \
+		"$(XDG_CONFIG_HOME)/wireplumber" \
+		"pipewire"
 
 	./register "$$(realpath data/zsh/functions/Completion)" \
 		"$(XDG_DATA_HOME)/zsh/functions/Completion" \
