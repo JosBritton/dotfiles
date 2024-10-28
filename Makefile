@@ -44,7 +44,14 @@ XDG_DATA_HOME    ?= "$(HOME)/.local/share"
 XDG_STATE_HOME   ?= "$(HOME)/.local/state"
 XDG_CACHE_HOME   ?= "$(HOME)/.cache"
 XDG_RUNTIME_DIR  ?= "/run/user/$(shell id -u)"
+
+# $HOME/.local/bin is not actually part of the XDG base dir spec
+# although it is mentioned and recommended in it.
+#
+# Consider that putting compiled binaries in this directory is not a
+# good idea as it will make your home directory architecture specific.
 BIN_HOME         := "$(HOME)/.local/bin"
+
 REGISTER_RUN_DIR := $(XDG_RUNTIME_DIR)/mk_dotfiles
 export REGISTER_RUN_DIR
 
