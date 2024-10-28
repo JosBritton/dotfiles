@@ -43,7 +43,7 @@ XDG_CONFIG_HOME  ?= "$(HOME)/.config"
 XDG_DATA_HOME    ?= "$(HOME)/.local/share"
 XDG_STATE_HOME   ?= "$(HOME)/.local/state"
 XDG_CACHE_HOME   ?= "$(HOME)/.cache"
-XDG_RUNTIME_DIR  ?= /tmp
+XDG_RUNTIME_DIR  ?= "/run/user/$(shell id -u)"
 BIN_HOME         := "$(HOME)/.local/bin"
 REGISTER_RUN_DIR := $(XDG_RUNTIME_DIR)/mk_dotfiles
 export REGISTER_RUN_DIR
