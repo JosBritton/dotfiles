@@ -4,7 +4,7 @@
 #	1. add alias to list below if you want to have it installed
 #	2. register your link under `register:` (follow the comment)
 
-INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh pipewire \
+INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh setaudio \
 		  neovim steam bspwm xinit xorg-nvidia git nvidia systemd-units \
 		  xdg-dirs npm fastfetch fd rfv eww convert_hex_xterm red_oxide \
 		  syncgs firefox yamllint bash ffmpeg
@@ -195,7 +195,7 @@ register: $(REGISTER_RUN_DIR)
 		"bspwm"
 	./register "$$(realpath bin/setaudio)" \
 		"$(BIN_HOME)/setaudio" \
-		"pipewire"
+		"setaudio"
 	./register "$$(realpath bin/xsetnvsync)" \
 		"$(BIN_HOME)/xsetnvsync" \
 		"xorg-nvidia"
