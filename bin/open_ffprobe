@@ -1,0 +1,23 @@
+#!/bin/sh
+
+[ -z "$XDG_RUNTIME_DIR" ] && \
+	XDG_RUNTIME_DIR="/run/user/$(id -u)"
+
+# Use the alacritty daemon if it is available in current context,
+# otherwise fallback to new alacritty instance.
+if [ -n "$ALACRITTY_SOCKET" ]; then
+    alacritty msg create-window -e sh ffprobe_pager -hide_banner "$@"
+else
+    alacritty -e sh ffprobe_pager -hide_banner "$@"
+fi
+
+# Find will most likely not have permission to traverse this entire directory,
+# thus it may error out (although unlikely given max depth), ignore it.
+
+# cleanup any old pipes that exist
+# `-type p` = fifo pipe
+find "$XDG_RUNTIME_DIR" \
+    -maxdepth 1 \
+    -type p \
+    -name "ffprobe_*" \
+    -delete 2>/dev/null || true

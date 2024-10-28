@@ -7,7 +7,7 @@
 INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh pipewire \
 		  neovim steam bspwm xinit xorg-nvidia git nvidia systemd-units \
 		  xdg-dirs npm fastfetch fd rfv eww convert_hex_xterm red_oxide \
-		  syncgs firefox yamllint bash
+		  syncgs firefox yamllint bash ffmpeg
 
 define INSTALL_TARGET
 .PHONY: all
@@ -204,6 +204,13 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath bin/syncgs)" \
 		"$(BIN_HOME)/syncgs" \
 		"syncgs"
+	./register "$$(realpath bin/ffprobe_pager)" \
+		"$(BIN_HOME)/ffprobe_pager" \
+		"ffmpeg"
+	./register "$$(realpath bin/open_ffprobe)" \
+		"$(BIN_HOME)/open_ffprobe" \
+		"ffmpeg"
+
 
 	./register "$$(realpath home/.zshenv)" \
 		"$(HOME)/.zshenv" \
