@@ -1,0 +1,56 @@
+[
+  {
+    "uuid": "64e25659-a6eb-4463-8382-36281109d1f9",
+    "pattern": {
+      "scheme": "*",
+      "host": [
+        "*.google.*"
+      ],
+      "path": [
+        "search?*"
+      ],
+      "topLevelDomains": [
+        "ca",
+        "com"
+      ]
+    },
+    "types": [
+      "main_frame"
+    ],
+    "action": "filter",
+    "active": true,
+    "title": "Remove%20Google%20search%20client%20param%20(firefox)",
+    "paramsFilter": {
+      "values": [
+        "client"
+      ]
+    },
+    "redirectUrl": ""
+  },
+  {
+    "uuid": "8b9021c8-6106-40ea-8aa0-a55e377714e9",
+    "pattern": {
+      "scheme": "*",
+      "host": [
+        "*.google.*"
+      ],
+      "path": [
+        "search?*"
+      ],
+      "topLevelDomains": [
+        "ca",
+        "com"
+      ],
+      "excludes": [
+        "/[?&]udm=14(&|$)/"
+      ]
+    },
+    "types": [
+      "main_frame"
+    ],
+    "action": "redirect",
+    "active": true,
+    "title": "Disable%20Google%20search%20AI-overview",
+    "redirectUrl": "{href}&udm=14"
+  }
+]
