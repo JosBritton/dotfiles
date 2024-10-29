@@ -160,7 +160,8 @@ alias fetch="fastfetch" \
     gs="git status" \
     t="bgnull alacritty" \
     f="bgnull thunar" \
-    gb="gh browse"
+    gb="gh browse" \
+    nvclean="nvim -c \"set clipboard=unnamedplus\" --clean -n --noplugin"
 
 # overrides
 alias ls="LC_ALL=C ls -hN1F --color=auto --group-directories-first" \
