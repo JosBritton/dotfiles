@@ -247,6 +247,15 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath home/.mozilla/firefox/user.js)" \
 		"$(HOME)/.mozilla/firefox/j4bekqo8.other/user.js" \
 		"firefox"
+	./register "$$(realpath home/.mozilla/firefox/chrome)" \
+		"$(HOME)/.mozilla/firefox/j0hhqujf.default-release/chrome" \
+		"firefox"
+	./register "$$(realpath home/.mozilla/firefox/chrome)" \
+		"$(HOME)/.mozilla/firefox/k1yfl65t.alt/chrome" \
+		"firefox"
+	./register "$$(realpath home/.mozilla/firefox/chrome)" \
+		"$(HOME)/.mozilla/firefox/j4bekqo8.other/chrome" \
+		"firefox"
 
 	./register "$$(realpath home/.thunderbird/installs.ini)" \
 		"$(HOME)/.thunderbird/installs.ini" \
