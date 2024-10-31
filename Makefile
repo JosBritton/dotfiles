@@ -128,8 +128,17 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath config/X11)" \
 		"$(XDG_CONFIG_HOME)/X11" \
 		"xinit"
-	./register "$$(realpath config/git)" \
-		"$(XDG_CONFIG_HOME)/git" \
+	./register "$$(realpath config/git/config)" \
+		"$(XDG_CONFIG_HOME)/git/config" \
+		"git"
+	./register "$$(realpath config/git/ignore)" \
+		"$(XDG_CONFIG_HOME)/git/ignore" \
+		"git"
+	./register "$$(realpath config/git/user/JosBritton)" \
+		"$(XDG_CONFIG_HOME)/git/user/JosBritton" \
+		"git"
+	./register "$$(realpath config/git/user/JosBritton_allowed_signers)" \
+		"$(XDG_CONFIG_HOME)/git/user/JosBritton_allowed_signers" \
 		"git"
 	./register "$$(realpath config/nvidia)" \
 		"$(XDG_CONFIG_HOME)/nvidia" \

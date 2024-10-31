@@ -1,0 +1,6 @@
+[user]
+	name = Joseph Britton
+	email = 85815005+JosBritton@users.noreply.github.com
+	signingkey = ~/.ssh/id_ed25519.pub
+[gpg "ssh"]
+        allowedSignersFile = ~/.config/git/user/JosBritton_allowed_signers

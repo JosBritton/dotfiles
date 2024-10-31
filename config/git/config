@@ -1,16 +1,18 @@
+[include]
+    path = ~/.config/git/private
 [user]
-	name = Joseph Britton
-	email = 85815005+JosBritton@users.noreply.github.com
-	signingkey = ~/.ssh/id_ed25519.pub
+    useConfigOnly = true
 [gpg]
 	format = ssh
 [commit]
 	gpgsign = true
-[core]
-	excludesFile = .DS_Store
-[gpg "ssh"]
-	allowedSignersFile = ~/.config/git/allowed_signers
+[tag]
+    gpgsign = true
 [init]
 	defaultBranch = master
 [pager]
 	branch = false
+[url "git@github-JosBritton:JosBritton"]
+    insteadOf = git@github.com:JosBritton
+[includeIf "hasconfig:remote.*.url:git@github.com:JosBritton/**"]
+	path = ~/.config/git/user/JosBritton
