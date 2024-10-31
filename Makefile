@@ -7,7 +7,7 @@
 INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh pipewire \
 		  neovim steam bspwm xinit xorg-nvidia git nvidia systemd-units \
 		  xdg-dirs npm fastfetch fd rfv eww convert_hex_xterm red_oxide \
-		  syncgs firefox yamllint bash ffmpeg
+		  syncgs firefox yamllint bash ffmpeg ssh
 
 define INSTALL_TARGET
 .PHONY: all
@@ -231,7 +231,9 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath home/.steam/steam/steam_dev.cfg)" \
 		"$(HOME)/.steam/steam/steam_dev.cfg" \
 		"steam"
-
+	./register "$$(realpath home/.ssh/config)" \
+		"$(HOME)/.ssh/config" \
+		"ssh"
 	./register "$$(realpath home/.mozilla/firefox/installs.ini)" \
 		"$(HOME)/.mozilla/firefox/installs.ini" \
 		"firefox"
