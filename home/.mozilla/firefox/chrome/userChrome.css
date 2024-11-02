@@ -1,88 +1,141 @@
-/* Source file https://github.com/MrOtherGuy/firefox-csshacks/tree/master/chrome/floating_findbar_on_top.css made available under Mozilla Public License v. 2.0
-See the above repository for updates as well as full license text. */
-
-/* Note that privacy.resistFingerprinting.letterboxing prevents this from working properly */
-
-findbar{
-  order: -1;
-  margin-bottom: -33px;
-  position: relative;
-  border-top: none !important;
-  padding: 0 !important;
-  transition: transform 82ms linear, opacity 82ms linear 32ms !important;
-  background: none !important;
-  pointer-events: none;
-  z-index: 1;
-  white-space: nowrap;
+@namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
+@namespace htmlNs url("http://www.w3.org/1999/xhtml");
+@keyframes findbar-scale-in {
+  0% {
+    transform: scaleY(0);
+  }
+  100% {
+    transform: scaleY(1);
+  }
 }
-
-.findbar-container > .findbar-find-fast{
-  padding: var(--toolbarbutton-inner-padding) 1px;
-  margin: 0 !important;
+@keyframes findbar-scale-out {
+  0% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0);
+  }
 }
-
-findbar[hidden]{ transform: translateY(-30px);}
-
-findbar > .findbar-container,
-findbar > .close-icon{
+findbar {
+  contain: content;
   border: 1px solid var(--chrome-content-separator-color);
-  border-width: 0 0 1px 0px;
-  background-color: var(--lwt-accent-color) !important;
-  background-image: linear-gradient(var(--toolbar-bgcolor),var(--toolbar-bgcolor)),var(--lwt-header-image,none);
-  pointer-events: auto;
+  /* Position */
+  position: absolute;
+  left: 18px;
+  top: 18px;
+  transform-origin: top center;
+  border-radius: var(--toolbarbutton-border-radius);
+  /* Animation */
+  animation: 0.1s findbar-scale-in;
+  /* Text box */
+  /* Checkboxes */
+  /* Description */
+  /* Order */
 }
-
-findbar > .findbar-container{
-  border-bottom-right-radius: 4px;
-  border-right-width: 1px;
-  height: initial !important;
-  margin-inline: 0px !important;
-  overflow-inline: visible !important;
+findbar[hidden=true] {
+  animation: 0.1s;
 }
-
-.findbar-find-status{
-  display: flex;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex-grow: 1;
+findbar checkbox, findbar [anonid=findbar-textbox-wrapper] toolbarbutton, findbar [anonid=findbar-textbox-wrapper] htmlNs|input {
+  border: 1px solid ThreeDShadow;
 }
-
-.findbar-closebutton{
-  margin: 0 !important;
+findbar {
+  gap: 8px;
+  padding: 6px;
+  padding-inline-start: 8px;
+  padding-inline-end: 8px;
+}
+findbar > * {
+  margin-inline-start: 0 !important;
+  margin-inline-end: 0 !important;
+}
+findbar .findbar-container {
+  gap: 8px;
+}
+findbar .findbar-container > * {
+  margin-inline-start: 0 !important;
+  margin-inline-end: 0 !important;
+}
+findbar [anonid=findbar-textbox-wrapper] {
+  /* Previous & next buttons. Hidden if the findbar is opened in quick find mode. */
+}
+findbar [anonid=findbar-textbox-wrapper] htmlNs|input:not(.minimal) {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+findbar [anonid=findbar-textbox-wrapper] toolbarbutton {
+  color: var(--button-color);
+  background-color: var(--button-background-color, var(--button-bgcolor));
+  border-width: 1px !important;
+  margin-inline: 0 !important;
+}
+findbar [anonid=findbar-textbox-wrapper] toolbarbutton:last-of-type {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+findbar [anonid=findbar-textbox-wrapper] toolbarbutton:not(:last-of-type) {
   border-radius: 0 !important;
-  padding: 5px !important;
-  width: initial !important;
-  order: -1;
+  border-right-width: 0 !important;
 }
-.findbar-closebutton > image{ padding: 3px }
-.findbar-closebutton:hover > image{
-  background: var(--toolbarbutton-hover-background) !important;
-  border-radius: 4px
+findbar checkbox {
+  padding: 3px 6px;
+  border-radius: var(--toolbarbutton-border-radius);
+  color: var(--button-color);
+  background-color: var(--button-background-color, var(--button-bgcolor));
 }
-findbar > .findbar-container > hbox{ margin: 0 5px }
-
-findbar::after{
-  content:"";
-  display: flex;
-  flex-grow: 100;
+findbar checkbox:hover {
+  background-color: var(--button-background-color-hover, var(--button-hover-bgcolor));
 }
-
-@media (-moz-bool-pref: "userchrome.floating-findbar-on-right.enabled"){
-  findbar{
-    flex-direction: row-reverse;
-  }
-  findbar > .findbar-container{
-    flex-direction: row-reverse;
-    border-inline-width: 1px 0px;
-    border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 4px;
-  }
-  /*
-  Move findbar so it isn't over the scrollbar
-  Delete if you want findbar to begin from right window edge
-  */
-  findbar{
-    margin-right: 16px;
-    border-right: 1px solid var(--chrome-content-separator-color);
-  }
+findbar checkbox:active {
+  background-color: var(--button-background-color-active, var(--button-active-bgcolor));
+}
+findbar checkbox[checked=true] {
+  color: var(--button-text-color-primary, var(--button-primary-color));
+  background-color: var(--color-accent-primary, var(--button-primary-bgcolor));
+}
+findbar checkbox[checked=true]:hover {
+  background-color: var(--color-accent-primary-hover, var(--button-primary-hover-bgcolor));
+}
+findbar checkbox[checked=true]:active {
+  background-color: var(--color-accent-primary-active, var(--button-primary-active-bgcolor));
+}
+findbar checkbox:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-outline-inset);
+}
+findbar checkbox .checkbox-check {
+  display: none;
+}
+findbar checkbox:not(checkbox[anonid=find-entire-word]) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+findbar checkbox:not(checkbox[anonid=highlight]) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  border-left-width: 0;
+  margin-inline-start: -8px !important;
+}
+findbar description.findbar-label:empty {
+  display: none;
+}
+findbar [anonid=findbar-textbox-wrapper] {
+  order: 0;
+}
+findbar checkbox[anonid=highlight] {
+  order: 1;
+}
+findbar checkbox[anonid=find-case-sensitive] {
+  order: 2;
+}
+findbar checkbox[anonid=find-match-diacritics] {
+  order: 3;
+}
+findbar checkbox[anonid=find-entire-word] {
+  order: 4;
+}
+findbar label.findbar-label {
+  order: 5;
+}
+findbar description.findbar-label {
+  order: 6;
 }
