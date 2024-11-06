@@ -20,6 +20,7 @@ bspc config merge_overlapping_monitors
 
 bspc rule -a thunderbird desktop="^2"
 bspc rule -a discord desktop="^3"
+bspc rule -a vesktop desktop="^3"
 
 bspc config ignore_ewmh_focus true
 
@@ -41,7 +42,7 @@ xsetnvsync on &
 alacritty --daemon &
 
 pgrep -x thunderbird >/dev/null || thunderbird &
-pgrep -x "com.discordapp." >/dev/null || flatpak run com.discordapp.Discord &
+pgrep -x vesktop >/dev/null || vesktop &
 caffeine &
 
 (pkill -USR1 -x sxhkd || true) &
