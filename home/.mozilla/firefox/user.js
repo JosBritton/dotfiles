@@ -16,3 +16,4 @@ user_pref("gfx.x11-egl.force-enabled", true);
 user_pref("widget.dmabuf.force-enabled", true);
 user_pref("browser.bookmarks.openInTabClosesMenu", false);
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+user_pref("browser.startup.page", 3);
