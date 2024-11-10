@@ -1,6 +1,6 @@
 #!/bin/sh -e
 
-p="$@"
+p="$*"
 
 if [ -z "$p" ]; then
     p="ON"
