@@ -4,3 +4,5 @@ bind 'set colored-stats on'
 #bind 'set colored-completion-prefix on'
 bind '"\e[Z": menu-complete-backward'
 bind TAB:menu-complete
+source /usr/share/fzf/completion.bash
+source /usr/share/fzf/key-bindings.bash
