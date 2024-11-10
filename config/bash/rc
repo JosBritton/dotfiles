@@ -6,3 +6,5 @@ bind '"\e[Z": menu-complete-backward'
 bind TAB:menu-complete
 source /usr/share/fzf/completion.bash
 source /usr/share/fzf/key-bindings.bash
+HISTCONTROL=ignoredups:erasedups
+shopt -s histappend
