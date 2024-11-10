@@ -57,8 +57,6 @@ zstyle ':completion:*:correct:*'       insert-unambiguous true
 zstyle ':completion:*:corrections'     format $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
 zstyle ':completion:*:correct:*'       original true
 
-_comp_options+=(globdots)  # include dotfiles in glob for completion only
-
 # use fd for fzf path completion (place after plugin is loaded)
 _fzf_compgen_path() { fd --hidden --follow --exclude ".git" . "$1"; }
 _fzf_compgen_dir() { fd --type d --hidden --follow --exclude ".git" . "$1"; }
@@ -76,6 +74,8 @@ compinit -d "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION"
     -nt "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION" ]] \
     || zcompile -R -- "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION.zwc" \
     "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/zcompdump-$ZSH_VERSION"
+
+_comp_options+=(globdots)  # include dotfiles in glob for completion only
 
 restore_stdio() {
     # fixes tmux: not a terminal error
