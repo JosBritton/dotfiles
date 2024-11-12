@@ -34,7 +34,7 @@ hsetroot -cover ~/.local/share/wallpapers/surface/websrc/ms_duo_light_hr_web.jpg
 dunst &
 sxhkd &
 flameshot &
-clipmenud &
+#clipmenud &
 xset s on && xset s 90 &
 xss-lock xsecurelock &
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
