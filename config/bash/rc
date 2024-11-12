@@ -9,3 +9,4 @@ source /usr/share/fzf/key-bindings.bash
 HISTCONTROL=ignoredups:erasedups
 shopt -s histappend
 alias nvclean="nvim -c \"set clipboard=unnamedplus\" --clean -n --noplugin"
+HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/bash/history"
