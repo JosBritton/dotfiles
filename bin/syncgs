@@ -1,5 +1,5 @@
 #!/bin/sh
-find "/home/$USER/Sync" -maxdepth 2 -mindepth 2 -name .git -type d -execdir zsh -c '
+find "$HOME/Sync" "$HOME/Sync/alt" -maxdepth 2 -mindepth 2 -name .git -type d -execdir zsh -c '
     printf "---\n"
     pwd
     git status --short
