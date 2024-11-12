@@ -28,7 +28,7 @@ Print
 
 # quit bspwm
 ctrl + alt + Delete
-	bspc query -N -n .window | xargs -i bspc node \{\} -c; bspc quit
+    quit_bspwm
 
 # shutdown gracefully
 # ctrl + alt + s

@@ -7,7 +7,7 @@
 INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh pipewire \
 		  neovim steam bspwm xinit xorg-nvidia git nvidia systemd-units \
 		  xdg-dirs npm fastfetch fd rfv eww convert_hex_xterm red_oxide \
-		  syncgs firefox yamllint bash ffmpeg ssh
+		  syncgs firefox yamllint bash ffmpeg ssh terminate_bg
 
 define INSTALL_TARGET
 .PHONY: all
@@ -208,6 +208,9 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath bin/bspfixsplits)" \
 		"$(BIN_HOME)/bspfixsplits" \
 		"bspwm"
+	./register "$$(realpath bin/quit_bspwm)" \
+		"$(BIN_HOME)/quit_bspwm" \
+		"bspwm"
 	./register "$$(realpath bin/setaudio)" \
 		"$(BIN_HOME)/setaudio" \
 		"setaudio"
@@ -232,7 +235,9 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath bin/open_ffprobe)" \
 		"$(BIN_HOME)/open_ffprobe" \
 		"ffmpeg"
-
+	./register "$$(realpath bin/terminate_bg)" \
+		"$(BIN_HOME)/terminate_bg" \
+		"terminate_bg"
 
 	./register "$$(realpath home/.zshenv)" \
 		"$(HOME)/.zshenv" \

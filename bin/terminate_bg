@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# kill background processes simultaneously
+# wait for kill before exiting
+
+parallel --timeout 20 \
+    "pgrep -x '{}' > /dev/null 2>&1 || exit 0 && pkill -x '{}'; pidwait '{}'" ::: "$@" \
+    && exit  # exit early
+
+# send kill signal after first timeout
+parallel --timeout 30 \
+    "pgrep -x '{}' > /dev/null 2>&1 && pkill --signal KILL -x '{}'; pidwait '{}'" ::: "$@"
+
+# exit without killing everything if last timeout reached
