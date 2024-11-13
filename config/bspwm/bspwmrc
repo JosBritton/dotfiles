@@ -42,8 +42,8 @@ xsetnvsync on &
 alacritty --daemon &
 caffeine &
 
-pgrep -x thunderbird >/dev/null || thunderbird &
-pgrep -x vesktop >/dev/null || vesktop &
+pgrep -x thunderbird >/dev/null 2>&1 || thunderbird &
+pgrep -x vesktop >/dev/null 2>&1 || vesktop &
 
 (pkill -USR1 -x sxhkd || true) &
 
