@@ -36,13 +36,14 @@ bspc config right_padding 0
 bspc config border_width 2
 bspc config window_gap 6
 
-nvidia-settings --load-config-only &
+nvidia-settings --load-config-only
+
 xsetnvsync on &
 alacritty --daemon &
+caffeine &
 
 pgrep -x thunderbird >/dev/null || thunderbird &
 pgrep -x vesktop >/dev/null || vesktop &
-caffeine &
 
 (pkill -USR1 -x sxhkd || true) &
 
