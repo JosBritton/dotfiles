@@ -285,8 +285,8 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath home/.thunderbird/profiles.ini)" \
 		"$(HOME)/.thunderbird/profiles.ini" \
 		"thunderbird"
-	./register "$$(realpath home/.thunderbird/dotfiles-profile/user.js)" \
-		"$(HOME)/.thunderbird/dotfiles-profile/user.js" \
+	./register "$$(realpath home/.thunderbird/user.js)" \
+		"$(HOME)/.thunderbird/j8jvvt8p.Default User/user.js" \
 		"thunderbird"
 
 .SILENT: $(REGISTER_RUN_DIR)
