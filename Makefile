@@ -208,6 +208,9 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath bin/bspfixsplits)" \
 		"$(BIN_HOME)/bspfixsplits" \
 		"bspwm"
+	./register "$$(realpath bin/bspreceptacle)" \
+		"$(BIN_HOME)/bspreceptacle" \
+		"bspwm"
 	./register "$$(realpath bin/quit_bspwm)" \
 		"$(BIN_HOME)/quit_bspwm" \
 		"bspwm"

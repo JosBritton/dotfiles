@@ -10,7 +10,7 @@ super + Tab
 	dmenu_run -h 30 -i
 
 # reload sxhkd
-super + r
+super + shift + r
 	pkill -USR1 -x sxhkd && notify-send "sxhkd: Reloaded keyboard shortcuts."
 
 super + b
@@ -69,6 +69,19 @@ super + {t,shift + t,s}
 # set the node flags
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
+
+#
+# receptacles
+#
+
+# insert receptacle
+# (chord hotkey)
+super + i; {h,j,k,l}
+	bspc node --presel-dir {west,south,north,east} -i
+super + r
+  bspreceptacle
+super + shift + i
+  for win in `bspc query -N -n .leaf.\!window`; do bspc node $win -k ; done;
 
 #
 # focus/swap
