@@ -5,7 +5,7 @@ fail() {
 }
 
 pass() {
-    printf '\033[0;32m\u2714\033[0m Pass: %s\n' "$1"
+    printf '\033[0;32m\u2714\033[0m  Pass: %s\n' "$1"
 }
 
 # test cannot have trailing slash
