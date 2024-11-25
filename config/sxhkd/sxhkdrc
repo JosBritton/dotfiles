@@ -152,7 +152,7 @@ super + {_,shift + }{1-9,0}
 #
 
 # reset split ratios on root node and children
-super + alt + equal
+super + e
 	bspc node @/ -E
 
 # fix splits
