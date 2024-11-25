@@ -2,12 +2,24 @@
 _tmpfs="$REGISTER_RUN_DIR"
 _source="$1"
 _dest="$2"
-_alias="$3"
+
+# handle spaces in makefile targets by substituting spaces with underscores
+# these are phony make targets, the path does not have to be accurate
+_alias="${3// /_}"
+_dest_target="${_dest// /_}"
+
+# avoid collision of substituted targets with other targets by prepending with an invalid path
+if [[ $2 =~ ( ) ]]; then
+    _dest_target="/dev/null///$_dest_target"
+fi
+if [[ $3 =~ ( ) ]]; then
+    _alias="/dev/null///$_alias"
+fi
 
 cat <<EOF >> "$_tmpfs/install.make"
-.PHONY: $_alias $_dest
-$_alias: $_dest
-$_dest:
+.PHONY: $_alias $_dest_target
+$_alias: $_dest_target
+$_dest_target:
 	mkdir -p "$(dirname "$_dest")"
 	ln -sfT "$_source" "$_dest"
 
@@ -17,9 +29,9 @@ EOF
 _file="$(echo "$_dest" | sed 's/\/$//')"
 
 cat <<EOF >> "$_tmpfs/installcheck.make"
-.PHONY: $_alias $_dest
-$_alias: $_dest
-$_dest:
+.PHONY: $_alias $_dest_target
+$_alias: $_dest_target
+$_dest_target:
 	./check "$_source" "$_dest"
 
 EOF
