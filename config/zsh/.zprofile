@@ -16,6 +16,10 @@ export __EGL_VENDOR_LIBRARY_FILENAMES="/usr/share/glvnd/egl_vendor.d/10_nvidia.j
 export MOZ_DRM_DEVICE="card0"
 export EU4GAMEDIR="$HOME/.local/share/Steam/steamapps/common/Europa Universalis IV"
 
+export __GL_SHADER_DISK_CACHE=1
+export __GL_SHADER_DISK_CACHE_SKIP_CLEANUP=1
+export __GL_SHADER_DISK_CACHE_PATH="${XDG_CACHE_HOME:-$HOME/.cache}/nv"
+
 gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 
 alias nvidia-settings="nvidia-settings --config="${XDG_CONFIG_HOME:-$HOME/.config}/nvidia/settings""
