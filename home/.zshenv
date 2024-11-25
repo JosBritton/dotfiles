@@ -21,6 +21,7 @@ export GOPATH="${XDG_DATA_HOME:-$HOME/.local/share}/go"
 export GOMODCACHE="${XDG_CACHE_HOME:-$HOME/.cache}/go/mod"
 export GOCACHE="${XDG_CACHE_HOME:-$HOME/.cache}/go-build"
 export TF_CLI_CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/terraform/cli.tfrc"
+export WINEPREFIX="${XDG_DATA_HOME:-$HOME/.local/share}/wine"
 
 # I think fedora abandoned the GTK -> QT theme
 # export QT_STYLE_OVERRIDE="Adwaita-Dark" 
