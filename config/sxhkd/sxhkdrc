@@ -30,10 +30,6 @@ Print
 ctrl + alt + Delete
     quit_bspwm
 
-# shutdown gracefully
-# ctrl + alt + s
-# 	bspc query -N -n .window | xargs -i bspc node \{\} -c; bspc quit && shutdown now
-
 # restart bspwm
 ctrl + alt + r
 	bspc wm -r
