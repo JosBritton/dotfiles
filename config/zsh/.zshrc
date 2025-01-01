@@ -165,7 +165,8 @@ alias fetch="fastfetch" \
     t="bgnull alacritty" \
     f="bgnull thunar" \
     gb="gh browse" \
-    nvclean="nvim -c \"set clipboard=unnamedplus\" --clean -n --noplugin"
+    nvclean="nvim -c \"set clipboard=unnamedplus\" --clean -n --noplugin" \
+    gcp="git cherry-pick --signoff"
 
 # overrides
 alias ls="LC_ALL=C ls -hN1F --color=auto --group-directories-first" \
