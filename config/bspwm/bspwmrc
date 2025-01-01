@@ -40,7 +40,6 @@ nvidia-settings --load-config-only
 pactl set-default-source alsa_input.usb-Soundcraft_Notepad-5-00.analog-stereo
 pactl set-default-sink alsa_output.usb-DIDI_AUDIO_TC100COA-01.analog-stereo
 
-xsetnvsync on &
 alacritty --daemon &
 
 pgrep -x thunderbird >/dev/null 2>&1 || thunderbird &
