@@ -5,7 +5,7 @@
 #	2. register your link under `register:` (follow the comment)
 
 INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh pipewire \
-		  neovim steam bspwm xinit xorg-nvidia git nvidia \
+		  neovim steam bspwm xinit xorg-nvidia git nvidia zathura \
 		  xdg-dirs npm fastfetch fd rfv eww convert_hex_xterm red_oxide \
 		  syncgs firefox yamllint bash ffmpeg ssh terminate_bg kitty
 
@@ -182,6 +182,9 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath config/kitty)" \
 		"$(XDG_CONFIG_HOME)/kitty" \
 		"kitty"
+	./register "$$(realpath config/zathura)" \
+		"$(XDG_CONFIG_HOME)/zathura" \
+		"zathura"
 
 	./register "$$(realpath data/zsh/functions/Completion)" \
 		"$(XDG_DATA_HOME)/zsh/functions/Completion" \
