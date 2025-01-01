@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ -z "$*" ]; then
+    diff
+    exit
+fi
+
+diff --color=always -- "$@" | less -r

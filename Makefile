@@ -7,7 +7,8 @@
 INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh pipewire \
 		  neovim steam bspwm xinit xorg-nvidia git nvidia zathura \
 		  xdg-dirs npm fastfetch fd rfv eww convert_hex_xterm red_oxide \
-		  syncgs firefox yamllint bash ffmpeg ssh terminate_bg kitty
+		  syncgs firefox yamllint bash ffmpeg ssh terminate_bg kitty \
+		  diff_pager
 
 define INSTALL_TARGET
 .PHONY: all
@@ -244,6 +245,9 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath bin/terminate_bg)" \
 		"$(BIN_HOME)/terminate_bg" \
 		"terminate_bg"
+	./register "$$(realpath bin/diff_pager)" \
+		"$(BIN_HOME)/diff_pager" \
+		"diff_pager"
 
 	./register "$$(realpath home/.zshenv)" \
 		"$(HOME)/.zshenv" \

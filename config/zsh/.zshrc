@@ -384,6 +384,8 @@ pacman_rehash() {
     fi
 }
 
+compdef _diff diff_pager
+
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd set_title_precmd
 add-zsh-hook precmd get_vcs_info_precmd
