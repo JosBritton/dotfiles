@@ -5,7 +5,7 @@
 #	2. register your link under `register:` (follow the comment)
 
 INSTALL_ALIASES = tmux fontconfig ccache alacritty thunderbird zsh pipewire \
-		  neovim steam bspwm xinit xorg-nvidia git nvidia systemd-units \
+		  neovim steam bspwm xinit xorg-nvidia git nvidia \
 		  xdg-dirs npm fastfetch fd rfv eww convert_hex_xterm red_oxide \
 		  syncgs firefox yamllint bash ffmpeg ssh terminate_bg kitty
 
@@ -143,9 +143,6 @@ register: $(REGISTER_RUN_DIR)
 	./register "$$(realpath config/nvidia)" \
 		"$(XDG_CONFIG_HOME)/nvidia" \
 		"nvidia"
-	./register "$$(realpath config/systemd)" \
-		"$(XDG_CONFIG_HOME)/systemd" \
-		"systemd-units"
 	./register "$$(realpath config/npm)" \
 		"$(XDG_CONFIG_HOME)/npm" \
 		"npm"
