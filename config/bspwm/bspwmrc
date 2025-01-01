@@ -42,7 +42,6 @@ pactl set-default-sink alsa_output.usb-DIDI_AUDIO_TC100COA-01.analog-stereo
 
 xsetnvsync on &
 alacritty --daemon &
-caffeine &
 
 pgrep -x thunderbird >/dev/null 2>&1 || thunderbird &
 pgrep -x vesktop >/dev/null 2>&1 || vesktop &
