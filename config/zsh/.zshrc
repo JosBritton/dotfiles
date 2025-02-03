@@ -132,6 +132,7 @@ local opts=(
     histsavenodups
     histignoredups
     histfindnodups
+    glob_dots
 )
 setopt $opts
 
