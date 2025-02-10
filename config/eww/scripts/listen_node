@@ -1,0 +1,15 @@
+#!/bin/sh
+
+refresh() {
+    # outputs occupied desktops (desktops with windows)
+    # {"d": bool, ...}
+    (bspc query --names -D -d .occupied || echo "99") | tr "\n" " " | \
+        awk '{printf "{"; for(i=1;i<NF;i++) printf "\"%s\":true,", $i; printf "\"%s\":true}\n", $NF}'
+}
+
+refresh
+
+bspc subscribe node_add node_remove node_transfer | while read -r _; do
+    refresh
+done
+

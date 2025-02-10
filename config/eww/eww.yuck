@@ -27,13 +27,13 @@
         :space-evenly true
         :halign "start"
     ;; REWORK
-    (button :class {activeworkspace == (screen == 0 ? 1 : 5) ? "active" : "inactive"}
+    (button :class "${desktopfocus?.[0] == (screen == 0 ? 1 : 5) ? 'active' : 'inactive'} ${desktopfocus?.[1]?.[(screen == 0 ? 1 : 5)] == true ? 'focused' : 'unfocused'} ${nodestatus?.[(screen == 0 ? 1 : 5)] == true ? 'occupied' : 'unoccupied'}"
             :onclick "bspc desktop -f ${screen == 0 ? 1 : 5}" {screen == 0 ? 1 : 5})
-    (button :class {activeworkspace == (screen == 0 ? 2 : 6) ? "active" : "inactive"}
+    (button :class "${desktopfocus?.[0] == (screen == 0 ? 2 : 6) ? 'active' : 'inactive'} ${desktopfocus?.[1]?.[(screen == 0 ? 2 : 6)] == true ? 'focused' : 'unfocused'} ${nodestatus?.[(screen == 0 ? 2 : 6)] == true ? 'occupied' : 'unoccupied'}"
             :onclick "bspc desktop -f ${screen == 0 ? 2 : 6}" {screen == 0 ? 2 : 6})
-    (button :class {activeworkspace == (screen == 0 ? 3 : 7) ? "active" : "inactive"}
+    (button :class "${desktopfocus?.[0] == (screen == 0 ? 3 : 7) ? 'active' : 'inactive'} ${desktopfocus?.[1]?.[(screen == 0 ? 3 : 7)] == true ? 'focused' : 'unfocused'} ${nodestatus?.[(screen == 0 ? 3 : 7)] == true ? 'occupied' : 'unoccupied'}"
             :onclick "bspc desktop -f ${screen == 0 ? 3 : 7}" {screen == 0 ? 3 : 7})
-    (button :class {activeworkspace == (screen == 0 ? 4 : 8) ? "active" : "inactive"}
+    (button :class "${desktopfocus?.[0] == (screen == 0 ? 4 : 8) ? 'active' : 'inactive'} ${desktopfocus?.[1]?.[(screen == 0 ? 4 : 8)] == true ? 'focused' : 'unfocused'} ${nodestatus?.[(screen == 0 ? 4 : 8)] == true ? 'occupied' : 'unoccupied'}"
             :onclick "bspc desktop -f ${screen == 0 ? 4 : 8}" {screen == 0 ? 4 : 8})))
 
 ;; (defwidget workspaces []
@@ -42,7 +42,7 @@
 (defwidget windowtitle [screen]
 (label :class "windowtitle"
         :text windowtitle
-        :visible {(screen == 0 && activeworkspace < 5) || (screen == 1 && activeworkspace > 4)}
+        :visible {(screen == 0 && desktopfocus?.[0] < 5) || (screen == 1 && desktopfocus?.[0] > 4)}
         :limit-width 48
         :show-truncated true
         :yalign "center"
@@ -51,8 +51,11 @@
 (deflisten windowtitle :initial ""
     "xtitle -s")
 
-(deflisten activeworkspace :initial ""
-    "./scripts/listenworkspace")
+(deflisten desktopfocus :initial '[""{"":null}]'
+    "./scripts/listen_desktop_focus")
+
+(deflisten nodestatus :initial '{"":null}'
+    "./scripts/listen_node")
 
 (defpoll longdate :interval "10s"
     "date '+%a, %b %d %Y'")
