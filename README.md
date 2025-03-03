@@ -53,8 +53,8 @@ make installcheck
 
 ## Uninstall
 
-*Note: uninstall may show false-positive errors indictaing that a link
-could not be found, this is consistent witht the link not being
+*Note: uninstall may show false-positive errors indicating that a link
+could not be found, this is consistent with the link not being
 installed in the first place and can be disregarded.*
 
 ```
