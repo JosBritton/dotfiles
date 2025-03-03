@@ -10,7 +10,7 @@ if [ $# -ne 1 ]; then
         (echo fzf not found; exit 1)
 
     # ex: additional_dirs="/path/to/dir\n/path/to/dir2"
-    additional_dirs="$HOME/Sync/dotfiles/config/nvim"
+    additional_dirs="$HOME/Sync/dotfiles/config/nvim\n$HOME/Sync/zed/crates/gpui"
 
     # use fd when possible, fallback to find
     which fd > /dev/null 2>&1 && \
