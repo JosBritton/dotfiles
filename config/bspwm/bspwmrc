@@ -26,7 +26,7 @@ bspc rule -a steam desktop="^1"
 # rdr2
 bspc rule -a steam_app_1174180 desktop="^1"
 
-bspc config ignore_ewmh_focus true
+bspc config ignore_ewmh_focus false
 
 bspc config normal_border_color	"#595959"
 bspc config active_border_color	"#595959"
