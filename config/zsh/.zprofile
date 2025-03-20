@@ -3,8 +3,7 @@ export FZF_DEFAULT_COMMAND="git ls-files --cached --others --exclude-standard | 
 export EDITOR=nvim
 export PATH="$PATH:$HOME/.local/bin"
 [ -z $GOPATH ] || export PATH="$PATH:$GOPATH/bin"
-# export PATH="$HOME/.local/lib/python3.11/site-packages:$PATH"
-# export PATH="$HOME/.local/share/npm/bin:$PATH"
+[ -z $CARGO_HOME ] || export PATH="$PATH:$CARGO_HOME/bin"
 
 export XCURSOR_SIZE=24
 export LESS='-R --use-color -Dd+r$Du+b$'
