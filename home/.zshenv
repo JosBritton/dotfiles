@@ -22,6 +22,7 @@ export WINEPREFIX="${XDG_DATA_HOME:-$HOME/.local/share}/wine"
 export GTK_THEME="Adwaita:dark"
 export PARALLEL_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/parallel"
 export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="${XDG_CONFIG_HOME:-$HOME/.config}"/java
+export DOCKER_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}"/docker
 
 # xdg base dirs
 export XDG_CONFIG_HOME="$HOME/.config"
