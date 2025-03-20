@@ -18,3 +18,5 @@
 	path = ~/.config/git/user/JosBritton
 [push]
     autoSetupRemote = true
+[submodule]
+    recurse = true
