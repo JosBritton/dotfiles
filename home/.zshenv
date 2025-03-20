@@ -24,6 +24,7 @@ export TF_CLI_CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/terraform/cli.tfrc"
 export WINEPREFIX="${XDG_DATA_HOME:-$HOME/.local/share}/wine"
 export GTK_THEME="Adwaita:dark"
 export PARALLEL_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/parallel"
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="${XDG_CONFIG_HOME:-$HOME/.config}"/java
 
 # xdg base dirs
 export XDG_CONFIG_HOME="$HOME/.config"
