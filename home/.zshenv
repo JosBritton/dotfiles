@@ -23,6 +23,7 @@ export GOCACHE="${XDG_CACHE_HOME:-$HOME/.cache}/go-build"
 export TF_CLI_CONFIG_FILE="${XDG_CONFIG_HOME:-$HOME/.config}/terraform/cli.tfrc"
 export WINEPREFIX="${XDG_DATA_HOME:-$HOME/.local/share}/wine"
 export GTK_THEME="Adwaita:dark"
+export PARALLEL_HOME="${XDG_CONFIG_HOME:-$HOME/.config}/parallel"
 
 # xdg base dirs
 export XDG_CONFIG_HOME="$HOME/.config"
