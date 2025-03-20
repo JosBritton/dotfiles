@@ -30,7 +30,7 @@ fi
 
 # does not need to restart with wm
 xsetroot -cursor_name left_ptr &
-hsetroot -cover ~/.local/share/wallpapers/surface/websrc/ms_duo_light_hr_web.jpg &
+hsetroot -cover ~/Pictures/Wallpapers/surface/websrc/ms_duo_light_hr_web.jpg &
 dunst &
 sxhkd &
 flameshot &
