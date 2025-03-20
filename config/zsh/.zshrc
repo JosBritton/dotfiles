@@ -176,7 +176,9 @@ alias ls="LC_ALL=C ls -hN1F --color=auto --group-directories-first" \
     fgrep="fgrep --color=auto" \
     egrep="egrep --color=auto" \
     diff="diff --color=auto" \
-    ip="ip -color=auto"
+    ip="ip -color=auto" \
+    nvidia-settings="nvidia-settings --config="${XDG_CONFIG_HOME:-$HOME/.config}/nvidia/settings"" \
+    yarn='yarn --use-yarnrc "${XDG_CONFIG_HOME:-$HOME/.config}/yarn/config"'
 
 zle -N clear_terminal_all
 zle -N open_tmux_scratch_prompt
