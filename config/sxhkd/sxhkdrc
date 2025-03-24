@@ -102,12 +102,12 @@ super + {p,b,comma,period}
 # 	bspc node -f {next,prev}.local.!hidden.window
 
 # alt tab functionality
-alt + {_,shift + }Tab
-	bspc node -f {next,prev}.local.!hidden.window.!locked
+# alt + {_,shift + }Tab
+# 	bspc node -f {next,prev}.local.!hidden.window.!locked
 
 # focus the next/previous desktop in the current monitor
-super + bracket{Left,Right}
-	bspc desktop -f {prev,next}.local
+# super + bracket{Left,Right}
+# 	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
 # super + {grave,Tab}
