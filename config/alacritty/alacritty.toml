@@ -21,6 +21,26 @@ style = "Italic"
 family = "DejaVuSansM Nerd Font"
 style = "Regular"
 
+[[keyboard.bindings]]
+action = "None"
+key = "h"
+mods = "Control|Super"
+
+[[keyboard.bindings]]
+action = "None"
+key = "j"
+mods = "Control|Super"
+
+[[keyboard.bindings]]
+action = "None"
+key = "k"
+mods = "Control|Super"
+
+[[keyboard.bindings]]
+action = "None"
+key = "l"
+mods = "Control|Super"
+
 # [[keyboard.bindings]]
 # action = "Paste"
 # key = "Paste"
