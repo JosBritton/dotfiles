@@ -19,6 +19,7 @@ bspc config gapless_monocle true
 bspc config merge_overlapping_monitors
 
 bspc rule -a thunderbird desktop="^2"
+bspc rule -a discord-canary desktop="^3"
 bspc rule -a discord desktop="^3"
 bspc rule -a vesktop desktop="^3"
 bspc rule -a steam desktop="^1"
@@ -46,8 +47,10 @@ pactl set-default-sink alsa_output.usb-DIDI_AUDIO_TC100COA-01.analog-stereo
 
 alacritty --daemon &
 
+# pgrep -x vesktop >/dev/null 2>&1 || vesktop &
+
 pgrep -x thunderbird >/dev/null 2>&1 || thunderbird &
-pgrep -x vesktop >/dev/null 2>&1 || vesktop &
+pgrep -x discord-canary >/dev/null 2>&1 || discord-canary &
 
 (pkill -USR1 -x sxhkd || true) &
 
