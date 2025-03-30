@@ -18,3 +18,5 @@ user_pref("browser.bookmarks.openInTabClosesMenu", false);
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 user_pref("browser.startup.page", 3);
 user_pref("ui.key.menuAccessKeyFocuses", false);
+// https://github.com/akhodakivskiy/VimFx/blob/master/documentation/options.md#find_from_top_of_viewport
+user_pref("extensions.VimFx.find_from_top_of_viewport", false);
